@@ -1,4 +1,5 @@
 #include <SDL.h>   
+#include <vector>
 #ifndef WINDOW_H  //avoid multiple inclusion
 #define WINDOW_H
 
@@ -10,8 +11,10 @@ class window{
 
 	SDL_Window* mainWindow; //The window
 	SDL_Surface* screen; //surface in window
+	std::vector<SDL_Surface*> activeScreens;
 
-
+	bool quit = false; //user has not quit
+	SDL_Event e; //Event handler
 
 public:
 	window(); //constructor
@@ -22,5 +25,5 @@ public:
 
 };
 void createMenu(SDL_Surface* screen, SDL_Window* mainWindow); //creates startup menu
-
+void close(std::vector<SDL_Surface*> activeScreens, SDL_Window* mainWindow); //Closes SDL
 #endif
