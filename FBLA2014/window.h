@@ -1,5 +1,6 @@
 #include <SDL.h>   
 #include <vector>
+#include <string>
 #ifndef WINDOW_H  //avoid multiple inclusion
 #define WINDOW_H
 
@@ -22,8 +23,10 @@ public:
 	const int getScreenHeight() const { return SCREEN_HEIGHT; };
 	SDL_Window* getWindow() const { return mainWindow; }; 
 	SDL_Surface* getSurface() const { return screen; };
+	std::vector<SDL_Surface*> getSurfaces() const{ return activeScreens; };
 
 };
 void createMenu(SDL_Surface* screen, SDL_Window* mainWindow); //creates startup menu
+SDL_Surface* loadSurface(const window* window, std::string path); //Loads surface onto window
 void close(std::vector<SDL_Surface*> activeScreens, SDL_Window* mainWindow); //Closes SDL
 #endif
