@@ -17,8 +17,8 @@ window::window() {
 	close(activeScreens, mainWindow); //If quit, close window
 }
 //Loads surface and places it on the screen
-SDL_Surface* loadSurface(const window* window, std::string path){ //TODO Animation! TODO File types?
-	SDL_Surface* art = SDL_LoadBMP(path.c_str()); //Load menu background
+SDL_Surface* loadSurface(const window* window, std::string path){ //TODO Animation! 
+	SDL_Surface* art = IMG_Load(path.c_str()); //Load menu background
 	SDL_BlitSurface(art, NULL, window -> getSurface(), NULL); //Put menu background on screen
 	SDL_UpdateWindowSurface(window ->getWindow()); //Update screen
 	window ->getSurfaces().push_back(art); //Add to array of surfaces

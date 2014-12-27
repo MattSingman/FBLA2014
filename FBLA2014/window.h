@@ -1,4 +1,5 @@
-#include <SDL.h>   
+#include <SDL.h> 
+#include <SDL_Image.h>
 #include <vector>
 #include <string>
 #ifndef WINDOW_H  //avoid multiple inclusion
