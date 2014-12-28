@@ -70,13 +70,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MenuItem.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\art\help.bmp" />
     <Image Include="..\art\menu.bmp" />
+    <Image Include="..\art\newGame.bmp" />
+    <Image Include="..\art\options.bmp" />
+    <Image Include="..\art\quit.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

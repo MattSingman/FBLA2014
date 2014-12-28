@@ -21,14 +21,32 @@
     <ClCompile Include="window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MenuItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\menu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\newGame.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\help.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\options.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\quit.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
