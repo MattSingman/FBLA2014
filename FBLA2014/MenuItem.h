@@ -9,7 +9,6 @@
 class window;
 
 class MenuItem {	
-	bool selected = false;
 	window* containerWindow; //Window menuItem is located in
 	const char* path; //Path to menu item's art
 	const int WIDTH = 300; //Width of menu item
@@ -20,6 +19,7 @@ class MenuItem {
 	void (*onSelection)(); //Function to execute upon selection
 
 public :
+	MenuItem();
 	MenuItem(const char*, void function(), window*); //constructor TODO: Param for animation? 
 	window* getContainerWindow() const { return containerWindow; };
 	SDL_Texture* getSDLTexture() const { return texture; };
@@ -28,6 +28,22 @@ public :
 	//given number of previous MenuItems, and distance between each item 
 	const int getItemWidth() const { return WIDTH; };
 	const int getItemHeight() const { return HEIGHT; };
+	int getXPos() const { return posTexture.getXPos(); };
+	int getYPos() const { return posTexture.getYPos(); };
+
+	auto getFunction() -> void(*)();
+
+	bool insidePos(int, int);
+
+	MenuItem& MenuItem::operator=(const MenuItem &rhs) { //Equality overload
+		containerWindow = rhs.containerWindow;
+		path = rhs.path;
+		texture = rhs.texture;
+		posTexture = rhs.posTexture;
+		onSelection = rhs.onSelection;
+		return *this;
+	}
+
 };
 
 #endif

@@ -27,10 +27,15 @@ class window{
 	std::vector<MenuItem> menuItems; //Array of MenuItems, used to scroll through the options
 	
 	bool quit = false; //user has not quit
+	bool inGame = false; //Is user playing or in menu?
 	SDL_Event e; //Event handler
 
 public:
 	window(); //constructor
+
+	bool isInGame() const { return inGame; };
+	void setInGame(bool change) { inGame = change; };
+
 	const int getScreenWidth() const { return SCREEN_WIDTH; }; 
 	const int getScreenHeight() const { return SCREEN_HEIGHT; };
 	SDL_Window* getWindow() const { return mainWindow; }; 

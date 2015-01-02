@@ -11,9 +11,30 @@ window::window() { //TODO: Music
 	createMenu();
 	while (!quit) { //main menu loop TODO: seperate function when running game?
 		while (SDL_PollEvent(&e) != 0) {
-			//If user quits
-			if (e.type == SDL_QUIT) {
-				quit = true;
+			if (!inGame) { //If in menu
+				//If user quits
+				if (e.type == SDL_QUIT) {
+					quit = true;
+				}
+				else if (e.type == SDL_MOUSEBUTTONUP) {
+					int mouseX, mouseY;
+					SDL_GetMouseState(&mouseX, &mouseY);
+					MenuItem selected;
+					for (auto& menuItem : menuItems) {
+						if (menuItem.insidePos(mouseX, mouseY)) {
+							selected = menuItem;
+							break;
+						}
+					}
+					if (selected.getSDLTexture() != NULL) { //Make sure object exists
+						selected.getFunction();
+					}
+				}
+			}
+			else { //If playing
+				if (e.type == SDL_QUIT) {
+					quit = true;
+				}
 			}
 
 		}
@@ -37,7 +58,7 @@ window::window() { //TODO: Music
 	//close(activeScreens, mainWindow); //If quit, close window TODO
 }
 //Loads surface and places it on the screen
-void window::loadBackgroundSurface(std::string path){ //TODO Animation! TODO Make it more reusable
+void window::loadBackgroundSurface(std::string path){ //TODO Animation if needed (hopefully not)! TODO Will I be able to chnage the background?
 	SDL_Surface* artSurface = IMG_Load(path.c_str()); //Load menu background
 
 	background = SDL_CreateTextureFromSurface(getRenderer(), artSurface); //Create texture

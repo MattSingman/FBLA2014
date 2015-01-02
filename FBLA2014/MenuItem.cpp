@@ -8,6 +8,7 @@ MenuItem::MenuItem(const char* artPath, void function(), window* parentWindow) {
 	containerWindow = parentWindow;
 
 }
+MenuItem::MenuItem() {} //Default constructor
 
 PositionedTexture MenuItem::placeOnScreen(int x, int y, int numPrev, int distanceAllotted) {
 	SDL_Rect dstrect;//SDL_Rect telling location to place MenuItem, x and y correspond to coords to place surface, from top left
@@ -23,4 +24,32 @@ PositionedTexture MenuItem::placeOnScreen(int x, int y, int numPrev, int distanc
 	posTexture =PositionedTexture(texture, dstrect);
 	return posTexture;
 
+}
+
+//is given position inside button?
+bool MenuItem::insidePos(int mouseX, int mouseY) { //TODO Member function vs variable?
+	//Check if mouse is in button
+	bool inside = true;
+
+	//Mouse is left of the button
+	if (mouseX < getXPos()) {
+		inside = false;
+	}
+	//Mouse is right of the button
+	else if (mouseX > getXPos() + getItemWidth()) {
+		inside = false;
+	}
+	//Mouse above the button
+	else if (mouseY < getYPos()) {
+		inside = false;
+	}
+	//Mouse below the button
+	else if (mouseY > getYPos() + getItemHeight()) {
+		inside = false;
+	}
+	return inside;
+}
+
+auto MenuItem::getFunction()-> void(*)() {
+	return onSelection;
 }
