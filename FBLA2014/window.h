@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "MenuItem.h"
+#include "PositionedTexture.h"
 
 #ifndef WINDOW_H  //avoid multiple inclusion
 #define WINDOW_H
@@ -19,8 +20,10 @@ class window{
 
 	SDL_Window* mainWindow; //The window
 	SDL_Surface* screen; //surface in window
-	std::vector<SDL_Surface*> activeScreens; //Array of surfaces, used to destroy all surfaces on closing
-	//Excludes MenuItem, MenuItem will handle disposing it's screens
+	SDL_Texture* background; //background texture
+	SDL_Renderer* renderer; //Renderer
+
+	std::vector<PositionedTexture> textures;
 	std::vector<MenuItem> menuItems; //Array of MenuItems, used to scroll through the options
 	
 	bool quit = false; //user has not quit
@@ -32,18 +35,20 @@ public:
 	const int getScreenHeight() const { return SCREEN_HEIGHT; };
 	SDL_Window* getWindow() const { return mainWindow; }; 
 	SDL_Surface* getSurface() const { return screen; }; 
+	SDL_Renderer* getRenderer() const{ return renderer; }; 
+	SDL_Texture* getBackgroundTexture() const { return background; };
 
 	//Get MenuItem constants
 	const int getMenuItemX() const { return MenuItemX; };
 	const int getMenuItemY() const { return MenuItemY; };
 
 
-	std::vector<SDL_Surface*> getSurfaces() const{ return activeScreens; }; //TODO Pointer?
 	std::vector<MenuItem> getMenuItems() const{ return menuItems; }; //TODO Pointer?
+	std::vector<PositionedTexture> getTextures() const { return textures; };
 
 	void createMenu(); //creates startup menu
-	SDL_Surface* loadBackgroundSurface(std::string path); //Loads surface onto window
-	void close(std::vector<SDL_Surface*> activeScreens, SDL_Window* mainWindow); //Closes SDL
+	void loadBackgroundSurface(std::string path); //Loads surface onto window
+	void close(); //Closes SDL
 
 };
 
