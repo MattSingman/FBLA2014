@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
+#include <functional>
 #include "PositionedTexture.h"
 
 
@@ -16,11 +17,11 @@ class MenuItem {
 	SDL_Texture* texture;
 	PositionedTexture posTexture;
 
-	void (*onSelection)(); //Function to execute upon selection
+	std::function<void()> onSelection; //Function to execute upon selection
 
 public :
 	MenuItem();
-	MenuItem(const char*, void function(), window*); //constructor TODO: Param for animation? 
+	MenuItem(const char*, std::function<void()>, window*); //constructor TODO: Param for animation? 
 	window* getContainerWindow() const { return containerWindow; };
 	SDL_Texture* getSDLTexture() const { return texture; };
 	PositionedTexture getTexture() const { return posTexture; };
@@ -31,7 +32,7 @@ public :
 	int getXPos() const { return posTexture.getXPos(); };
 	int getYPos() const { return posTexture.getYPos(); };
 
-	auto getFunction() -> void(*)();
+	std::function<void()> getFunction() { return onSelection; };
 
 	bool insidePos(int, int);
 

@@ -1,3 +1,4 @@
+#include <functional>
 #include "window.h"
 
 window::window() { //TODO: Music
@@ -9,7 +10,15 @@ window::window() { //TODO: Music
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
 	loadBackgroundSurface("../art/menu.bmp");//Load the startup menu
 	createMenu();
+	
+	//Start FPS counter
+	fpsTimer.start();
+
+
 	while (!quit) { //main menu loop TODO: seperate function when running game?
+		//Start fps cap timer
+		capTimer.start();
+
 		while (SDL_PollEvent(&e) != 0) {
 			if (!inGame) { //If in menu
 				//If user quits
@@ -27,7 +36,7 @@ window::window() { //TODO: Music
 						}
 					}
 					if (selected.getSDLTexture() != NULL) { //Make sure object exists
-						selected.getFunction();
+						(selected.getFunction())();
 					}
 				}
 			}
@@ -36,7 +45,10 @@ window::window() { //TODO: Music
 					quit = true;
 				}
 			}
-
+		}
+		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+		if (avgFPS > 2000000) {
+			avgFPS = 0;
 		}
 		//Clear screen
 		SDL_RenderClear(renderer);
@@ -54,13 +66,21 @@ window::window() { //TODO: Music
 
 		//Update screen
 		SDL_RenderPresent(renderer);
+		++countedFrames;
+		//If frame finished early
+		int frameTicks = capTimer.getTicks();
+		if (frameTicks < SCREEN_TICKS_PER_FRAME) {
+			//Wait remaining time
+			SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
+		}
 	}
-	//close(activeScreens, mainWindow); //If quit, close window TODO
+	close(); //If quit, close window TODO
 }
 //Loads surface and places it on the screen
-void window::loadBackgroundSurface(std::string path){ //TODO Animation if needed (hopefully not)! TODO Will I be able to chnage the background?
-	SDL_Surface* artSurface = IMG_Load(path.c_str()); //Load menu background
+void window::loadBackgroundSurface(std::string path){ //TODO Will I be able to chnage the background?
+	SDL_Surface* artSurface = IMG_Load(path.c_str()); //Load background
 
+	background = NULL;
 	background = SDL_CreateTextureFromSurface(getRenderer(), artSurface); //Create texture
 	SDL_FreeSurface(artSurface);
 } 
@@ -79,34 +99,40 @@ void window::close() { //TODO MenuItems close themselves
 	SDL_Quit();
 }
 //start a new game
-void newGame() {
-	
+void window::newGame() {
+	inGame = true;
+	loadBackgroundSurface("../art/gameBackground.bmp"); //load game background
+
 }
 //show options
-void showOptions() {
+void window::showOptions() {
 
 }
 //Shows instructions on how to play
-void showHelp() {
+void window::showHelp() {
 
 }
 //Quits program
-void quitWindow() {
-
+void window::quitWindow() {
+	quit = true;
 }
 //Creates menu with options
 void window::createMenu() {
 
-	MenuItem newGameOption = MenuItem("../art/newGame.bmp", newGame, this);  //New game option
+	std::function<void()> newGameFunction = std::bind(&window::newGame,this);
+	MenuItem newGameOption = MenuItem("../art/newGame.bmp", newGameFunction, this);  //New game option
 	menuItems.push_back(newGameOption); //Adds to array of MenuItems
 
-	MenuItem optionsOption = MenuItem("../art/options.bmp", showOptions, this);  //Show options menu
+	std::function<void()> showOptionsFunction = std::bind(&window::showOptions,this);
+	MenuItem optionsOption = MenuItem("../art/options.bmp", showOptionsFunction, this);  //Show options menu
 	menuItems.push_back(optionsOption);
 
-	MenuItem helpOption = MenuItem("../art/help.bmp", showHelp, this); //Show help 
+	std::function<void()> showHelpFunction = std::bind(&window::showHelp,this);
+	MenuItem helpOption = MenuItem("../art/help.bmp", showHelpFunction, this); //Show help 
 	menuItems.push_back(helpOption);
 
-	MenuItem quitOption = MenuItem("../art/quit.bmp", quitWindow, this); //Quit
+	std::function<void()> quitWindowFunction = std::bind(&window::quitWindow,this);
+	MenuItem quitOption = MenuItem("../art/quit.bmp", quitWindowFunction, this); //Quit
 	menuItems.push_back(quitOption);
 
 	int distanceAllotted = (getScreenHeight() - (2 * getMenuItemY())) / menuItems.size(); //distance for each item is the space allowed to the items divided by the number of items

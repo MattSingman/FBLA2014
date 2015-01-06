@@ -4,6 +4,7 @@
 #include <string>
 #include "MenuItem.h"
 #include "PositionedTexture.h"
+#include "timer.h"
 
 #ifndef WINDOW_H  //avoid multiple inclusion
 #define WINDOW_H
@@ -13,6 +14,9 @@ class window{
 	//TODO: Make it user inputted?
 	const int SCREEN_WIDTH = 1366;
 	const int SCREEN_HEIGHT = 768;
+	const int SCREEN_FPS = 60;
+	const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+
 
 	//Constants for MenuItem positioning, see MenuItem.h for further details
 	const int MenuItemX = SCREEN_WIDTH/2; //Gives where CENTER of MenuItem should be
@@ -29,6 +33,14 @@ class window{
 	bool quit = false; //user has not quit
 	bool inGame = false; //Is user playing or in menu?
 	SDL_Event e; //Event handler
+
+	//The frames per second timer
+	timer fpsTimer;
+	//The frames per second cap timer
+	timer capTimer;
+	int countedFrames = 0;
+
+
 
 public:
 	window(); //constructor
@@ -53,6 +65,12 @@ public:
 
 	void createMenu(); //creates startup menu
 	void loadBackgroundSurface(std::string path); //Loads surface onto window
+
+	void window::newGame();
+	void window::showOptions();
+	void window::showHelp();
+	void window::quitWindow();
+
 	void close(); //Closes SDL
 
 };

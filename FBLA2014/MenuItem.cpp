@@ -2,7 +2,7 @@
 #include "window.h"
 
 //Constructor
-MenuItem::MenuItem(const char* artPath, void function(), window* parentWindow) {
+MenuItem::MenuItem(const char* artPath, std::function<void()> function, window* parentWindow) {
 	path = artPath;
 	onSelection = function;
 	containerWindow = parentWindow;
@@ -50,6 +50,3 @@ bool MenuItem::insidePos(int mouseX, int mouseY) { //TODO Member function vs var
 	return inside;
 }
 
-auto MenuItem::getFunction()-> void(*)() {
-	return onSelection;
-}
