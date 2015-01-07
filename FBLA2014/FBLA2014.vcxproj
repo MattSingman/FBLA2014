@@ -69,16 +69,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="PositionedTexture.cpp" />
     <ClCompile Include="timer.cpp" />
+    <ClCompile Include="turret.cpp" />
+    <ClCompile Include="turretButton.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="PositionedTexture.h" />
     <ClInclude Include="timer.h" />
+    <ClInclude Include="turret.h" />
+    <ClInclude Include="turretButton.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>

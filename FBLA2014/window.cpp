@@ -8,7 +8,6 @@ window::window() { //TODO: Music
 	//SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); TODO Final game full screen
 	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED); //Create renderer
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
-	loadBackgroundSurface("../art/menu.bmp");//Load the startup menu
 	createMenu();
 	
 	//Start FPS counter
@@ -102,6 +101,9 @@ void window::close() { //TODO MenuItems close themselves
 void window::newGame() {
 	inGame = true;
 	loadBackgroundSurface("../art/gameBackground.bmp"); //load game background
+	textures.clear();
+
+	
 
 }
 //show options
@@ -118,6 +120,7 @@ void window::quitWindow() {
 }
 //Creates menu with options
 void window::createMenu() {
+	loadBackgroundSurface("../art/menu.bmp");//Load the startup menu
 
 	std::function<void()> newGameFunction = std::bind(&window::newGame,this);
 	MenuItem newGameOption = MenuItem("../art/newGame.bmp", newGameFunction, this);  //New game option
