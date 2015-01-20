@@ -3,38 +3,25 @@
 #include <string>
 #include <functional>
 #include "PositionedTexture.h"
+#include "Button.h"
 
 
 #ifndef MENU_ITEM_H  //avoid multiple inclusion
 #define MENU_ITEM_H
-class window;
 
-class MenuItem {	
-	window* containerWindow; //Window menuItem is located in
-	const char* path; //Path to menu item's art
+
+class MenuItem : public Button {	 //Inherits from class Button
+	
 	const int WIDTH = 300; //Width of menu item
 	const int HEIGHT = 100; //Height of menu item
-	SDL_Texture* texture;
-	PositionedTexture posTexture;
+
 
 	std::function<void()> onSelection; //Function to execute upon selection
-
-public :
+public:
 	MenuItem();
 	MenuItem(const char*, std::function<void()>, window*); //constructor TODO: Param for animation? 
-	window* getContainerWindow() const { return containerWindow; };
-	SDL_Texture* getSDLTexture() const { return texture; };
-	PositionedTexture getTexture() const { return posTexture; };
-	PositionedTexture placeOnScreen(int x, int y, int, int); //Places MenuItem on screen at given location (IMPORTANT: X-Y location is at CENTER)
-	//given number of previous MenuItems, and distance between each item 
-	const int getItemWidth() const { return WIDTH; };
-	const int getItemHeight() const { return HEIGHT; };
-	int getXPos() const { return posTexture.getXPos(); };
-	int getYPos() const { return posTexture.getYPos(); };
-
 	std::function<void()> getFunction() { return onSelection; };
 
-	bool insidePos(int, int);
 
 	MenuItem& MenuItem::operator=(const MenuItem &rhs) { //Equality overload
 		containerWindow = rhs.containerWindow;
@@ -44,7 +31,6 @@ public :
 		onSelection = rhs.onSelection;
 		return *this;
 	}
-
 };
 
 #endif

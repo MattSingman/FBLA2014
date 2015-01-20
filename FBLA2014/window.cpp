@@ -34,9 +34,9 @@ window::window() { //TODO: Music
 							break;
 						}
 					}
-					if (selected.getSDLTexture() != NULL) { //Make sure object exists
+					//if (selected.getFunction() != NULL) { //Make sure object exists
 						(selected.getFunction())();
-					}
+					//}
 				}
 			}
 			else { //If playing
@@ -141,7 +141,7 @@ void window::createMenu() {
 	int distanceAllotted = (getScreenHeight() - (2 * getMenuItemY())) / menuItems.size(); //distance for each item is the space allowed to the items divided by the number of items
 	//TODO distance allotted
 	for (size_t i = 0; i < menuItems.size(); ++i) {
-		PositionedTexture j = menuItems[i].placeOnScreen(getMenuItemX(), getMenuItemY(), i, distanceAllotted);//Place each MenuItem on screen
+		PositionedTexture j = menuItems[i].placeOnScreen(getMenuItemX(), (getMenuItemY()+ (i* distanceAllotted)));//Place each MenuItem on screen TODO Y POS
 		textures.push_back(j);
 	}
 
