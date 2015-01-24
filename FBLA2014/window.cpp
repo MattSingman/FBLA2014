@@ -1,4 +1,3 @@
-#include <functional>
 #include "window.h"
 
 window::window() { //TODO: Music
@@ -24,7 +23,7 @@ window::window() { //TODO: Music
 				if (e.type == SDL_QUIT) {
 					quit = true;
 				}
-				else if (e.type == SDL_MOUSEBUTTONUP) {
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) {
 					int mouseX, mouseY;
 					SDL_GetMouseState(&mouseX, &mouseY);
 					MenuItem selected;
@@ -34,14 +33,46 @@ window::window() { //TODO: Music
 							break;
 						}
 					}
-					//if (selected.getFunction() != NULL) { //Make sure object exists
+					if (selected.getFunction() != NULL) { //Make sure object exists
 						(selected.getFunction())();
-					//}
+					}
 				}
 			}
 			else { //If playing
 				if (e.type == SDL_QUIT) {
 					quit = true;
+				}
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) {
+					int mouseX, mouseY;
+					SDL_GetMouseState(&mouseX, &mouseY);
+					for (auto& turretButton : turretButtons) {
+						if (turretButton.insidePos(mouseX, mouseY)) {
+							turretButton.setSelected(true);
+							for (auto& turretButtonCheck : turretButtons) {
+								if (&turretButtonCheck != &turretButton) {
+									turretButtonCheck.setSelected(false); //SElecting one deselects others
+								}
+							}
+							break;
+						}
+					}
+					
+				}
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_RIGHT) {
+					for (auto& turretButton : turretButtons) {
+						if (turretButton.getSelected()) {
+							turretButton.setSelected(false);
+						}
+					}
+				}
+				else if (e.type == SDL_MOUSEMOTION) {
+					for (auto& turretButton : turretButtons) {
+						if (turretButton.getSelected()) {
+							int mouseX, mouseY;
+							SDL_GetMouseState(&mouseX, &mouseY);
+							turretButton.setChildPosition(mouseX, mouseY);
+						}
+					}
 				}
 			}
 		}
@@ -54,12 +85,12 @@ window::window() { //TODO: Music
 
 		SDL_RenderCopy(renderer, background, NULL, NULL); //Render background
 
-		for (auto texture : textures) {
-			if (texture.getXPos() && texture.getYPos()) { //Position, if applicable
-				SDL_RenderCopy(renderer, texture.getTexture(), NULL, texture.getRect());
-			}
-			else {
-				SDL_RenderCopy(renderer, texture.getTexture(), NULL, NULL);
+		for (int i = 0; i <= MAX_LEVEL; ++i) {
+			for (auto texture : textures) {
+				if (texture.getLevel() == i) {
+					SDL_RenderCopy(renderer, texture.getTexture(), NULL, texture.getRect());
+				}
+				
 			}
 		}
 
@@ -103,7 +134,21 @@ void window::newGame() {
 	loadBackgroundSurface("../art/gameBackground.bmp"); //load game background
 	textures.clear();
 
-	
+	turretButton deleteButton = turretButton("../art/deleteButton.bmp", "../art/delete.bmp",this);
+	turretButtons.push_back(deleteButton);
+
+	turretButton quarantineButton = turretButton("../art/quarantineButton.bmp", "../art/quarantine.bmp",  this);
+	turretButtons.push_back(quarantineButton);
+
+	turretButton scannerButton = turretButton("../art/scannerButton.bmp", "../art/scanner.bmp", this);
+	turretButtons.push_back(scannerButton);
+
+	int xPosition = SCREEN_WIDTH;
+	for (int i = 0; i < turretButtons.size(); ++i) {
+		PositionedTexture positionTexture = turretButtons[i].placeOnScreen(xPosition, (128 * i) + 128);
+		textures.push_back(positionTexture);
+		textures.push_back(turretButtons[i].getChildPosTexture());
+	}
 
 }
 //show options
@@ -126,9 +171,6 @@ void window::createMenu() {
 	MenuItem newGameOption = MenuItem("../art/newGame.bmp", newGameFunction, this);  //New game option
 	menuItems.push_back(newGameOption); //Adds to array of MenuItems
 
-	std::function<void()> showOptionsFunction = std::bind(&window::showOptions,this);
-	MenuItem optionsOption = MenuItem("../art/options.bmp", showOptionsFunction, this);  //Show options menu
-	menuItems.push_back(optionsOption);
 
 	std::function<void()> showHelpFunction = std::bind(&window::showHelp,this);
 	MenuItem helpOption = MenuItem("../art/help.bmp", showHelpFunction, this); //Show help 

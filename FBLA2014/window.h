@@ -2,9 +2,12 @@
 #include <SDL_Image.h>
 #include <vector>
 #include <string>
+#include <functional>
 #include "MenuItem.h"
 #include "PositionedTexture.h"
 #include "timer.h"
+#include "turretButton.h"
+
 
 #ifndef WINDOW_H  //avoid multiple inclusion
 #define WINDOW_H
@@ -17,6 +20,7 @@ class window{
 	const int SCREEN_FPS = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
+	const int MAX_LEVEL = 1;
 
 	//Constants for MenuItem positioning, see MenuItem.h for further details
 	const int MenuItemX = SCREEN_WIDTH/2; //Gives where CENTER of MenuItem should be
@@ -28,7 +32,8 @@ class window{
 	SDL_Renderer* renderer; //Renderer
 
 	std::vector<PositionedTexture> textures;
-	std::vector<MenuItem> menuItems; //Array of MenuItems, used to scroll through the options
+	std::vector<MenuItem> menuItems; //Array of MenuItems
+	std::vector<turretButton> turretButtons; //Vector of turret buttons (in game)
 	
 	bool quit = false; //user has not quit
 	bool inGame = false; //Is user playing or in menu?
@@ -50,6 +55,7 @@ public:
 
 	const int getScreenWidth() const { return SCREEN_WIDTH; }; 
 	const int getScreenHeight() const { return SCREEN_HEIGHT; };
+	const int getMaxLevel() const { return MAX_LEVEL; };
 	SDL_Window* getWindow() const { return mainWindow; }; 
 	SDL_Surface* getSurface() const { return screen; }; 
 	SDL_Renderer* getRenderer() const{ return renderer; }; 
