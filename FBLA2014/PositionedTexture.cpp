@@ -26,7 +26,7 @@ void PositionedTexture::setRect(int x, int y, int h, int w) {
 	dstrect.y = y;
 	dstrect.h = h;
 	dstrect.w = w;
-	
+	getLevel();
 
 }
 PositionedTexture::PositionedTexture() {};

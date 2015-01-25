@@ -12,10 +12,10 @@ turretButton::turretButton(const char* artPath, const char* child, window* paren
 	dstrect.h = 0; dstrect.w = 0; 
 	dstrect.x = 0;
 	dstrect.y = 0;
-	SDL_Surface* surface = IMG_Load(path); 
-	texture = SDL_CreateTextureFromSurface(containerWindow->getRenderer(), surface); 
-	SDL_FreeSurface(surface);
-	childPosTexture = PositionedTexture(texture, dstrect, 1);
+	SDL_Surface* childSurface = IMG_Load(childPath);
+	SDL_Texture* childTexture = SDL_CreateTextureFromSurface(containerWindow->getRenderer(), childSurface);
+	SDL_FreeSurface(childSurface);
+	childPosTexture = PositionedTexture(childTexture, dstrect, 1);
 
 }
 
@@ -41,6 +41,7 @@ void turretButton::setSelected(bool update) {
 	}
 	else {
 		childPosTexture.setRect(childRect->x, childRect->y, TURRET_HEIGHT, TURRET_WIDTH);
+		childPosTexture.getYPos();
 	}
 }
 

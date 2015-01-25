@@ -15,7 +15,7 @@
 class window{
 	//Screen dimension constants 
 	//TODO: Make it user inputted?
-	const int SCREEN_WIDTH = 1366;
+	const int SCREEN_WIDTH = 1024;
 	const int SCREEN_HEIGHT = 768;
 	const int SCREEN_FPS = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;

@@ -48,6 +48,7 @@ window::window() { //TODO: Music
 					for (auto& turretButton : turretButtons) {
 						if (turretButton.insidePos(mouseX, mouseY)) {
 							turretButton.setSelected(true);
+							textures.push_back(turretButton.getChildPosTexture());
 							for (auto& turretButtonCheck : turretButtons) {
 								if (&turretButtonCheck != &turretButton) {
 									turretButtonCheck.setSelected(false); //SElecting one deselects others
@@ -75,6 +76,13 @@ window::window() { //TODO: Music
 					}
 				}
 			}
+			textures.clear();
+			for (auto& turretButton: turretButtons) {
+				textures.push_back(turretButton.getTexture());
+				if (turretButton.getSelected()) {
+					textures.push_back(turretButton.getChildPosTexture());
+				}
+			}
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000) {
@@ -85,6 +93,7 @@ window::window() { //TODO: Music
 
 		SDL_RenderCopy(renderer, background, NULL, NULL); //Render background
 
+		
 		for (int i = 0; i <= MAX_LEVEL; ++i) {
 			for (auto texture : textures) {
 				if (texture.getLevel() == i) {
@@ -147,7 +156,6 @@ void window::newGame() {
 	for (int i = 0; i < turretButtons.size(); ++i) {
 		PositionedTexture positionTexture = turretButtons[i].placeOnScreen(xPosition, (128 * i) + 128);
 		textures.push_back(positionTexture);
-		textures.push_back(turretButtons[i].getChildPosTexture());
 	}
 
 }
