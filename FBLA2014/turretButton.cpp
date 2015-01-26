@@ -41,7 +41,6 @@ void turretButton::setSelected(bool update) {
 	}
 	else {
 		childPosTexture.setRect(childRect->x, childRect->y, TURRET_HEIGHT, TURRET_WIDTH);
-		childPosTexture.getYPos();
 	}
 }
 
