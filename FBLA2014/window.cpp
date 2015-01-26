@@ -2,7 +2,7 @@
 
 window::window() { //TODO: Music
 	SDL_Init(SDL_INIT_EVERYTHING);//initialize SDL
-	mainWindow = SDL_CreateWindow("GAMENAMEHERE", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 32); //create Window TODO: Change window name
+	mainWindow = SDL_CreateWindow("Bob's Tower Defense", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 32); //create Window TODO: Change window name
 
 	SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); //TODO Final game full screen. TODO Exit while in game
 	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED); //Create renderer
@@ -10,7 +10,7 @@ window::window() { //TODO: Music
 	createMenu();
 	
 	//Start FPS counter
-	fpsTimer.start();
+	fpsTimer.start(); 
 
 
 	while (!quit) { //main menu loop TODO: seperate function when running game?
