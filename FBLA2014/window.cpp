@@ -4,7 +4,7 @@ window::window() { //TODO: Music
 	SDL_Init(SDL_INIT_EVERYTHING);//initialize SDL
 	mainWindow = SDL_CreateWindow("GAMENAMEHERE", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 32); //create Window TODO: Change window name
 
-	//SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); TODO Final game full screen
+	SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); //TODO Final game full screen. TODO Exit while in game
 	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED); //Create renderer
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
 	createMenu();
@@ -48,6 +48,9 @@ window::window() { //TODO: Music
 					for (auto& turretButton : turretButtons) {
 						if (turretButton.insidePos(mouseX, mouseY)) {
 							turretButton.setSelected(true);
+							int mouseX, mouseY;
+							SDL_GetMouseState(&mouseX, &mouseY);
+							turretButton.setChildPosition(mouseX, mouseY);
 							textures.push_back(turretButton.getChildPosTexture());
 							for (auto& turretButtonCheck : turretButtons) {
 								if (&turretButtonCheck != &turretButton) {
@@ -75,14 +78,15 @@ window::window() { //TODO: Music
 						}
 					}
 				}
-			}
-			textures.clear();
-			for (auto& turretButton: turretButtons) {
-				textures.push_back(turretButton.getTexture());
-				if (turretButton.getSelected()) {
-					textures.push_back(turretButton.getChildPosTexture());
+				textures.clear();
+				for (auto& turretButton : turretButtons) {
+					textures.push_back(turretButton.getTexture());
+					if (turretButton.getSelected()) {
+						textures.push_back(turretButton.getChildPosTexture());
+					}
 				}
 			}
+			
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000) {
