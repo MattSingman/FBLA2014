@@ -100,12 +100,7 @@ window::window() { //TODO: Music
 		}
 		if (inGame) { //Screen must be updated if in game
 			textures.clear();
-			for (auto& turretButton : turretButtons) {
-				textures.push_back(turretButton.getTexture());
-				if (turretButton.getSelected()) {
-					textures.push_back(turretButton.getChildPosTexture());
-				}
-			}
+			
 			for (auto& wallBlock : wallBlocks) {
 				textures.push_back(wallBlock.getTexture());
 				if (!(wallBlock.isEmpty())) {
@@ -114,6 +109,12 @@ window::window() { //TODO: Music
 			}
 			for (auto& pathBlock : pathBlocks) {
 				textures.push_back(pathBlock.getTexture());
+			}
+			for (auto& turretButton : turretButtons) {
+				textures.push_back(turretButton.getTexture());
+				if (turretButton.getSelected()) {
+					textures.push_back(turretButton.getChildPosTexture());
+				}
 			}
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
