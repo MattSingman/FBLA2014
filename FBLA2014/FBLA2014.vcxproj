@@ -74,6 +74,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuItem.cpp" />
+    <ClCompile Include="PathBlock.cpp" />
     <ClCompile Include="PositionedTexture.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="turret.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="PathBlock.h" />
     <ClInclude Include="PositionedTexture.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="turret.h" />

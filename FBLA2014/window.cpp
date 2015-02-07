@@ -93,6 +93,9 @@ window::window() { //TODO: Music
 			for (auto& block : blocks) {
 				textures.push_back(block.getTexture());
 			}
+			for (auto& pathBlock : pathBlocks) {
+				textures.push_back(pathBlock.getTexture());
+			}
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000) {
@@ -186,26 +189,26 @@ void window::newGame() {
 	//Add Blocks TODO make it more dynamic to screen res
 	for (int i = 1; i < 12; ++i) {//Loop through each height, leaving one slot at the top
 		for (int j = 0; j < 16; ++j) {//Loop through each width
-			Block newBlock;
 			if (gamePath[i][j] == "N") {
-				newBlock = Block("../art/block.bmp", "../art/blockScanned.bmp", this, j, i);
+				Block newBlock = Block("../art/block.bmp", "../art/blockScanned.bmp", this, j, i);
+				newBlock.placeOnScreen(j * 64, i * 64);
+				textures.push_back(newBlock.getTexture());
+				blocks.push_back(newBlock);
 			}
 			else {
-				newBlock = Block("../art/path.bmp", "../art/pathScanned.bmp", this, j, i);
+				PathBlock newPathBlock = PathBlock("../art/path.bmp", "../art/pathScanned.bmp", this, j, i, gamePath[i][j].c_str());
+				newPathBlock.placeOnScreen(j * 64, i * 64);
+				textures.push_back(newPathBlock.getTexture());
+				pathBlocks.push_back(newPathBlock);
 			}
-			newBlock.placeOnScreen(j * 64, i * 64);
-			textures.push_back(newBlock.getTexture());
-			blocks.push_back(newBlock);
+			
 		}
 	}
 	
 	
 
 }
-//show options
-void window::showOptions() {
 
-}
 //Shows instructions on how to play
 void window::showHelp() {
 
