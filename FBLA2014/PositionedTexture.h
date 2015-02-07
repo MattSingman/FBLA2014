@@ -29,6 +29,8 @@ class PositionedTexture { //Holds texture and it's x-y positioning
 			dstrect = rhs.dstrect;
 			return *this;
 		}
+
+		
 };
 
 #endif

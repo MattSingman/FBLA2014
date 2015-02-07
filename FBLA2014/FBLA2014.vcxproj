@@ -79,6 +79,7 @@
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="turret.cpp" />
     <ClCompile Include="turretButton.cpp" />
+    <ClCompile Include="WallBlock.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,7 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="turret.h" />
     <ClInclude Include="turretButton.h" />
+    <ClInclude Include="WallBlock.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>

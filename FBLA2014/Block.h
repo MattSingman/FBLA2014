@@ -9,8 +9,14 @@
 class window;
 
 
-class Block : public Button {
+class Block {
 protected:
+	window* containerWindow; //Window button is located in
+
+	SDL_Texture* texture;
+	PositionedTexture posTexture;
+
+
 	const char* pathScanned; //Path to item's art
 	const char* pathUnscanned;
 	const int WIDTH = 64; //Width of item
@@ -20,6 +26,9 @@ protected:
 
 	int gridX;
 	int gridY;
+
+	int xPos;
+	int yPos;
 
 	bool scanned = false;
 
@@ -32,9 +41,22 @@ public:
 
 	int getGridX() const { return gridX; };
 	int getGridY() const { return gridY; };
+	int getXPos() const { return xPos; };
+	int getYPos() const { return yPos; };
+	const int getItemWidth() const { return WIDTH; };
+	const int getItemHeight() const { return HEIGHT; };
+
+
+
 
 	bool getScanned() const { return scanned; };
 	void setScanned(bool);
+
+	window* getContainerWindow() const { return containerWindow; };
+	SDL_Texture* getSDLTexture() const { return texture; };
+	PositionedTexture getTexture() const { return posTexture; };
+
+	bool insidePos(int, int);
 
 
 	Block& Block::operator=(const Block &rhs) { //Equality overload
@@ -46,6 +68,8 @@ public:
 		unScannedTexture = rhs.unScannedTexture;
 		gridX = rhs.gridX;
 		gridY = rhs.gridY;
+		xPos = rhs.xPos;
+		yPos = rhs.yPos;
 		scanned = rhs.scanned;
 		return *this;
 	}

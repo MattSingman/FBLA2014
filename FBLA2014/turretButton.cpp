@@ -2,7 +2,7 @@
 #include "window.h"
 
 //Constructor
-turretButton::turretButton(const char* artPath, const char* child, window* parentWindow) {
+turretButton::turretButton(const char* artPath, const char* child, window* parentWindow, const char* type) {
 	path = artPath;
 	childPath = child;
 	containerWindow = parentWindow;
@@ -16,6 +16,8 @@ turretButton::turretButton(const char* artPath, const char* child, window* paren
 	SDL_Texture* childTexture = SDL_CreateTextureFromSurface(containerWindow->getRenderer(), childSurface);
 	SDL_FreeSurface(childSurface);
 	childPosTexture = PositionedTexture(childTexture, dstrect, 1);
+
+	turretType = type;
 
 }
 

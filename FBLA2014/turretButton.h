@@ -17,14 +17,18 @@ class turretButton : public Button {
 	const char* childPath;
 	PositionedTexture childPosTexture;
 
+	const char* turretType;
+
 	bool selected = false;
 
 public:
 	turretButton();
-	turretButton(const char*, const char*, window*); //constructor 
+	turretButton(const char*, const char*, window*, const char*); //constructor 
 
 	bool getSelected() { return selected; };
 	void setSelected(bool);
+
+	const char* getTurretType() const { return turretType; };
 
 	void setChildPosition(int, int);
 

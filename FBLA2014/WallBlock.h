@@ -3,20 +3,25 @@
 #include <string>
 #include "PositionedTexture.h"
 #include "Block.h"
+#include "turret.h"
 
-#ifndef PATH_BLOCK_H
-#define PATH_BLOCK_H
+#ifndef WALL_BLOCK_H
+#define WALL_BLOCK_H
 
-class PathBlock : public Block {
-	
+class WallBlock : public Block {
+	bool empty = true; //If block has turret on it
 
-	const char* movementDirection;
+	turret childTurret;
 
 public:
-	PathBlock();
-	PathBlock(const char*, const char*, window*, int, int, const char*); //constructor
+	WallBlock();
+	WallBlock(const char*, const char*, window*, int, int); //constructor
 
-	const char* const getMovementDirection() { return movementDirection; }; 
+	bool isEmpty() const { return empty; };
+	void setEmpty(bool change) { empty = change; };
+
+	void addTurret(const char*, PositionedTexture); 
+	turret getChildTurret() const { return childTurret; };
 
 	const int getItemWidth() const { return WIDTH; };
 	const int getItemHeight() const { return HEIGHT; };
@@ -24,7 +29,8 @@ public:
 	int getYPos() const { return posTexture.getYPos(); };
 
 
-	PathBlock& PathBlock::operator=(const PathBlock &rhs) { //Equality overload
+
+	WallBlock& WallBlock::operator=(const WallBlock &rhs) { //Equality overload
 		containerWindow = rhs.containerWindow;
 		pathScanned = rhs.pathScanned;
 		pathUnscanned = rhs.pathUnscanned;
@@ -33,8 +39,11 @@ public:
 		unScannedTexture = rhs.unScannedTexture;
 		gridX = rhs.gridX;
 		gridY = rhs.gridY;
+		xPos = rhs.xPos;
+		yPos = rhs.yPos;
 		scanned = rhs.scanned;
-		movementDirection = rhs.movementDirection;
+		empty = rhs.empty;
+		childTurret = rhs.childTurret;
 		return *this;
 	}
 };

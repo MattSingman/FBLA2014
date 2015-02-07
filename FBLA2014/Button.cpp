@@ -25,7 +25,7 @@ PositionedTexture Button::placeOnScreen(int x, int y) {
 }
 
 //is given position inside button?
-bool Button::insidePos(int mouseX, int mouseY) { //TODO Member function vs variable?
+bool Button::insidePos(int mouseX, int mouseY) { 
 	//Check if mouse is in button
 	bool inside = true;
 

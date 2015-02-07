@@ -48,9 +48,9 @@ window::window() { //TODO: Music
 					for (auto& turretButton : turretButtons) { //TODO If found, dont check for other possible interactions?
 						if (turretButton.insidePos(mouseX, mouseY)) {
 							turretButton.setSelected(true);
-							int mouseX, mouseY;
-							SDL_GetMouseState(&mouseX, &mouseY);
-							turretButton.setChildPosition(mouseX, mouseY);
+							int xMouse, yMouse;
+							SDL_GetMouseState(&xMouse, &yMouse);
+							turretButton.setChildPosition(xMouse, yMouse);
 							textures.push_back(turretButton.getChildPosTexture());
 							for (auto& turretButtonCheck : turretButtons) {
 								if (&turretButtonCheck != &turretButton) {
@@ -60,7 +60,23 @@ window::window() { //TODO: Music
 							break;
 						}
 					}
-					
+					for (auto& wallBlock : wallBlocks) { 
+						if (wallBlock.insidePos(mouseX, mouseY) && wallBlock.isEmpty()) { //If click was in one of the wall blocks
+							const char* turretType = "";
+							PositionedTexture turretTexture;
+							for (auto& turretButton : turretButtons) {
+								if (turretButton.getSelected()) {
+									turretType = turretButton.getTurretType();
+									turretTexture = turretButton.getChildPosTexture();
+									break;
+								}
+							}
+							if (turretType != "") {
+								wallBlock.addTurret(turretType, turretTexture);
+							}
+							break;
+						}
+					}
 				}
 				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_RIGHT) {
 					for (auto& turretButton : turretButtons) {
@@ -90,8 +106,11 @@ window::window() { //TODO: Music
 					textures.push_back(turretButton.getChildPosTexture());
 				}
 			}
-			for (auto& block : blocks) {
-				textures.push_back(block.getTexture());
+			for (auto& wallBlock : wallBlocks) {
+				textures.push_back(wallBlock.getTexture());
+				if (!(wallBlock.isEmpty())) {
+					textures.push_back(wallBlock.getChildTurret().getTexture());
+				}
 			}
 			for (auto& pathBlock : pathBlocks) {
 				textures.push_back(pathBlock.getTexture());
@@ -156,13 +175,13 @@ void window::newGame() {
 	loadBackgroundSurface("../art/gameBackground.bmp"); //load game background
 	textures.clear();
 
-	turretButton deleteButton = turretButton("../art/deleteButton.bmp", "../art/delete.bmp",this); //Button to select different turrets
+	turretButton deleteButton = turretButton("../art/deleteButton.bmp", "../art/delete.bmp",this, "delete"); //Button to select different turrets
 	turretButtons.push_back(deleteButton);
 
-	turretButton quarantineButton = turretButton("../art/quarantineButton.bmp", "../art/quarantine.bmp",  this);
+	turretButton quarantineButton = turretButton("../art/quarantineButton.bmp", "../art/quarantine.bmp",  this, "quarantine");
 	turretButtons.push_back(quarantineButton);
 
-	turretButton scannerButton = turretButton("../art/scannerButton.bmp", "../art/scanner.bmp", this);
+	turretButton scannerButton = turretButton("../art/scannerButton.bmp", "../art/scanner.bmp", this, "scanner");
 	turretButtons.push_back(scannerButton);
 
 	int xPosition = SCREEN_WIDTH;
@@ -190,10 +209,10 @@ void window::newGame() {
 	for (int i = 1; i < 12; ++i) {//Loop through each height, leaving one slot at the top
 		for (int j = 0; j < 16; ++j) {//Loop through each width
 			if (gamePath[i][j] == "N") {
-				Block newBlock = Block("../art/block.bmp", "../art/blockScanned.bmp", this, j, i);
+				WallBlock newBlock = WallBlock("../art/block.bmp", "../art/blockScanned.bmp", this, j, i);
 				newBlock.placeOnScreen(j * 64, i * 64);
 				textures.push_back(newBlock.getTexture());
-				blocks.push_back(newBlock);
+				wallBlocks.push_back(newBlock);
 			}
 			else {
 				PathBlock newPathBlock = PathBlock("../art/path.bmp", "../art/pathScanned.bmp", this, j, i, gamePath[i][j].c_str());

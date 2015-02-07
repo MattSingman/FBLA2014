@@ -10,6 +10,7 @@
 #include "turretButton.h"
 #include "Block.h"
 #include "PathBlock.h"
+#include "WallBlock.h"
 
 
 #ifndef WINDOW_H  //avoid multiple inclusion
@@ -37,7 +38,7 @@ class window{
 	std::vector<PositionedTexture> textures;
 	std::vector<MenuItem> menuItems; //Array of MenuItems
 	std::vector<turretButton> turretButtons; //Vector of turret buttons (in game)
-	std::vector<Block> blocks;//Vector of blocks
+	std::vector<WallBlock> wallBlocks;//Vector of blocks
 	std::vector<PathBlock> pathBlocks; //vector of path blocks (what enemy can walk on)
 	
 	bool quit = false; //user has not quit
@@ -76,7 +77,7 @@ public:
 	std::vector<MenuItem> getMenuItems() const{ return menuItems; }; 
 	std::vector<PositionedTexture> getTextures() const { return textures; };
 	std::vector<turretButton> getTurretButtons() const { return turretButtons; };
-	std::vector<Block> getBlocks() const { return blocks; };
+	std::vector<WallBlock> getWallBlocks() const { return wallBlocks; };
 	std::vector<PathBlock> getPathBlocks() const { return pathBlocks; };
 
 	void createMenu(); //creates startup menu
