@@ -3,10 +3,12 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <array>
 #include "MenuItem.h"
 #include "PositionedTexture.h"
 #include "timer.h"
 #include "turretButton.h"
+#include "Block.h"
 
 
 #ifndef WINDOW_H  //avoid multiple inclusion
@@ -34,6 +36,7 @@ class window{
 	std::vector<PositionedTexture> textures;
 	std::vector<MenuItem> menuItems; //Array of MenuItems
 	std::vector<turretButton> turretButtons; //Vector of turret buttons (in game)
+	std::vector<Block> blocks;//Vector of blocks
 	
 	bool quit = false; //user has not quit
 	bool inGame = false; //Is user playing or in menu?
@@ -44,6 +47,8 @@ class window{
 	//The frames per second cap timer
 	timer capTimer;
 	int countedFrames = 0;
+
+	std::vector<std::vector<std::string>> gamePath; //Values assigned inside the newGame member function
 
 
 

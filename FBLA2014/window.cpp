@@ -4,7 +4,7 @@ window::window() { //TODO: Music
 	SDL_Init(SDL_INIT_EVERYTHING);//initialize SDL
 	mainWindow = SDL_CreateWindow("Bob's Tower Defense", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 32); //create Window TODO: Change window name
 
-	SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); //TODO Final game full screen. TODO Exit while in game
+	//SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); //TODO Final game full screen. TODO Exit while in game
 	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED); //Create renderer
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
 	createMenu();
@@ -13,7 +13,7 @@ window::window() { //TODO: Music
 	fpsTimer.start(); 
 
 
-	while (!quit) { //main menu loop TODO: seperate function when running game?
+	while (!quit) { //main loop TODO: exit game while in game!
 		//Start fps cap timer
 		capTimer.start();
 
@@ -45,7 +45,7 @@ window::window() { //TODO: Music
 				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) {
 					int mouseX, mouseY;
 					SDL_GetMouseState(&mouseX, &mouseY);
-					for (auto& turretButton : turretButtons) {
+					for (auto& turretButton : turretButtons) { //TODO If found, dont check for other possible interactions?
 						if (turretButton.insidePos(mouseX, mouseY)) {
 							turretButton.setSelected(true);
 							int mouseX, mouseY;
@@ -78,15 +78,21 @@ window::window() { //TODO: Music
 						}
 					}
 				}
-				textures.clear();
-				for (auto& turretButton : turretButtons) {
-					textures.push_back(turretButton.getTexture());
-					if (turretButton.getSelected()) {
-						textures.push_back(turretButton.getChildPosTexture());
-					}
-				}
+
 			}
 			
+		}
+		if (inGame) { //Screen must be updated if in game
+			textures.clear();
+			for (auto& turretButton : turretButtons) {
+				textures.push_back(turretButton.getTexture());
+				if (turretButton.getSelected()) {
+					textures.push_back(turretButton.getChildPosTexture());
+				}
+			}
+			for (auto& block : blocks) {
+				textures.push_back(block.getTexture());
+			}
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000) {
@@ -117,7 +123,7 @@ window::window() { //TODO: Music
 			SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 		}
 	}
-	close(); //If quit, close window TODO
+	close(); //If quit, close window 
 }
 //Loads surface and places it on the screen
 void window::loadBackgroundSurface(std::string path){ //TODO Will I be able to chnage the background?
@@ -147,7 +153,7 @@ void window::newGame() {
 	loadBackgroundSurface("../art/gameBackground.bmp"); //load game background
 	textures.clear();
 
-	turretButton deleteButton = turretButton("../art/deleteButton.bmp", "../art/delete.bmp",this);
+	turretButton deleteButton = turretButton("../art/deleteButton.bmp", "../art/delete.bmp",this); //Button to select different turrets
 	turretButtons.push_back(deleteButton);
 
 	turretButton quarantineButton = turretButton("../art/quarantineButton.bmp", "../art/quarantine.bmp",  this);
@@ -157,10 +163,43 @@ void window::newGame() {
 	turretButtons.push_back(scannerButton);
 
 	int xPosition = SCREEN_WIDTH;
-	for (int i = 0; i < turretButtons.size(); ++i) {
+	for (int i = 0; i < turretButtons.size(); ++i) { //Add buttons to select turret
 		PositionedTexture positionTexture = turretButtons[i].placeOnScreen(xPosition, (128 * i) + 128);
 		textures.push_back(positionTexture);
 	}
+
+	gamePath = { //Array holds path that enemies will go down. N means not walkable block; U, D, L, R correspond to direction enemy will go. 
+		//(Up, down, left or right)
+		{ "" }, //Computer tower
+		{ "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "U", "N" },
+		{ "N", "N", "N", "N", "N", "N", "N", "N", "N", "R", "R", "R", "D", "N", "U", "N" },
+		{ "N", "N", "N", "N", "N", "N", "N", "N", "N", "U", "N", "N", "D", "N", "U", "N" },
+		{ "N", "N", "N", "N", "N", "N", "N", "N", "N", "U", "N", "N", "D", "N", "U", "N" },
+		{ "N", "N", "N", "N", "N", "N", "N", "N", "N", "U", "N", "N", "D", "N", "U", "N" },
+		{ "R", "R", "R", "R", "R", "R", "D", "N", "N", "U", "N", "N", "D", "N", "U", "N" },
+		{ "U", "N", "N", "N", "N", "N", "D", "N", "N", "U", "N", "D", "L", "N", "U", "N" },
+		{ "U", "L", "L", "L", "N", "N", "D", "N", "N", "U", "N", "D", "N", "N", "U", "N" },
+		{ "N", "N", "N", "U", "N", "N", "D", "N", "N", "U", "N", "R", "R", "R", "U", "N" },
+		{ "N", "N", "N", "U", "N", "N", "D", "N", "N", "U", "N", "N", "N", "N", "N", "N" },
+		{ "R", "R", "R", "U", "N", "N", "R", "R", "R", "U", "N", "N", "N", "N", "N", "N" }
+	};
+	//Add Blocks TODO make it more dynamic to screen res
+	for (int i = 1; i < 12; ++i) {//Loop through each height, leaving one slot at the top
+		for (int j = 0; j < 16; ++j) {//Loop through each width
+			Block newBlock;
+			if (gamePath[i][j] == "N") {
+				newBlock = Block("../art/block.bmp", "../art/blockScanned.bmp", this, j, i);
+			}
+			else {
+				newBlock = Block("../art/path.bmp", "../art/pathScanned.bmp", this, j, i);
+			}
+			newBlock.placeOnScreen(j * 64, i * 64);
+			textures.push_back(newBlock.getTexture());
+			blocks.push_back(newBlock);
+		}
+	}
+	
+	
 
 }
 //show options

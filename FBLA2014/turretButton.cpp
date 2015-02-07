@@ -22,7 +22,7 @@ turretButton::turretButton(const char* artPath, const char* child, window* paren
 PositionedTexture turretButton::placeOnScreen(int x, int y) {
 	SDL_Rect dstrect;//SDL_Rect telling location to place button, x and y correspond to coords to place surface, from top left
 	dstrect.h = getItemHeight(); dstrect.w = getItemWidth(); //Height and width are the same for each item
-	dstrect.x = x-getItemWidth(); //compensates for SDL_Rect taking values at left corner, so the value passed in is the center of the item
+	dstrect.x = x-getItemWidth(); //compensates for SDL_Rect taking values at left corner
 
 	dstrect.y = y;
 	SDL_Surface* surface = IMG_Load(path); //Load menu background

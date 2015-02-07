@@ -7,11 +7,11 @@
 #define TURRET_BUTTON_H
 
 class turretButton : public Button {
-	const int WIDTH = 350; //Width of turret button
+	const int WIDTH = 342; //Width of turret button
 	const int HEIGHT = 128; //Height of turret button
 
-	const int TURRET_WIDTH = 100;
-	const int TURRET_HEIGHT = 100;
+	const int TURRET_WIDTH = 64;
+	const int TURRET_HEIGHT = 64;
 
 
 	const char* childPath;
