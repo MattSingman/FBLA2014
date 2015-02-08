@@ -21,7 +21,7 @@ public:
 	MenuItem();
 	MenuItem(const char*, std::function<void()>, window*); //constructor TODO: Param for animation? 
 	std::function<void()> getFunction() { return onSelection; };
-
+	PositionedTexture placeOnScreen(int, int);
 
 	MenuItem& MenuItem::operator=(const MenuItem &rhs) { //Equality overload
 		containerWindow = rhs.containerWindow;

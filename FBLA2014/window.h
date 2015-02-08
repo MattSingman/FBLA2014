@@ -42,6 +42,7 @@ class window{
 	std::vector<turretButton> turretButtons; //Vector of turret buttons (in game)
 	std::vector<WallBlock> wallBlocks;//Vector of blocks
 	std::vector<PathBlock> pathBlocks; //vector of path blocks (what enemy can walk on)
+	Button playButton;
 
 	game currentGame;
 	

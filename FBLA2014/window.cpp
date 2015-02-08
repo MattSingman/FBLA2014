@@ -79,6 +79,28 @@ window::window() { //TODO: Music
 									wallBlock.removeTurret();
 									
 								}
+								else { //if the purchase was valid
+									if (turretType == "scanner") { //If user purchased scanner
+										int blockX = wallBlock.getGridX();
+										int blockY = wallBlock.getGridY();
+
+										for (auto& wallBlockScan : wallBlocks) { //Set wallBlocks as scanned if they are within 2 blocks
+											int checkBlockX = wallBlockScan.getGridX();
+											int checkBlockY = wallBlockScan.getGridY();
+											if (abs(blockX - checkBlockX) <= 2 && abs(blockY - checkBlockY) <= 2) {
+												wallBlockScan.setScanned(true);
+											}
+										}
+										for (auto& pathBlockScan : pathBlocks) { //pathBlocks are scanned if within 2 blocks
+											int checkBlockX = pathBlockScan.getGridX();
+											int checkBlockY = pathBlockScan.getGridY();
+											if (abs(blockX - checkBlockX) <=2 && abs(blockY - checkBlockY) <= 2) {
+												pathBlockScan.setScanned(true);
+											}
+										}
+
+									}
+								}
 							}
 							break;
 						}
@@ -129,6 +151,15 @@ window::window() { //TODO: Music
 			const char* moneyCountCString = moneyCountString.c_str();
 			TextTexture money = TextTexture(moneyCountCString, white, 1066, 500, renderer);
 			textures.push_back(money.getPosTexture());
+
+			//Create text box for HP
+			int hpCount = currentGame.getHP();
+			std::string hpString = "HP:" + std::to_string(hpCount) + "%"; //Convert int to string for display
+			const char* hpCString = hpString.c_str();
+			TextTexture hp = TextTexture(hpCString, white, 1066, 550, renderer);
+			textures.push_back(hp.getPosTexture());
+
+			textures.push_back(playButton.getTexture()); //Add play button
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000) {
@@ -237,8 +268,11 @@ void window::newGame() {
 			
 		}
 	}
+	playButton = Button("../art/play.bmp", this);
+	playButton.placeOnScreen(1066, 600); //Play button starts wave
 	currentGame = game();
 	
+
 
 
 }
