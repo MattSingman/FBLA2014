@@ -11,6 +11,8 @@
 #include "Block.h"
 #include "PathBlock.h"
 #include "WallBlock.h"
+#include "game.h"
+#include "TextTexture.h"
 
 
 #ifndef WINDOW_H  //avoid multiple inclusion
@@ -40,6 +42,8 @@ class window{
 	std::vector<turretButton> turretButtons; //Vector of turret buttons (in game)
 	std::vector<WallBlock> wallBlocks;//Vector of blocks
 	std::vector<PathBlock> pathBlocks; //vector of path blocks (what enemy can walk on)
+
+	game currentGame;
 	
 	bool quit = false; //user has not quit
 	bool inGame = false; //Is user playing or in menu?

@@ -28,6 +28,7 @@ public:
 	int getXPos() const { return posTexture.getXPos(); };
 	int getYPos() const { return posTexture.getYPos(); };
 
+	void removeTurret();
 
 
 	WallBlock& WallBlock::operator=(const WallBlock &rhs) { //Equality overload

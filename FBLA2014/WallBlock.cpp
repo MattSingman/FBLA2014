@@ -21,3 +21,9 @@ void WallBlock::addTurret(const char* turretType, PositionedTexture childTexture
 	childTurret = turret(turretType, childTexture);
 	
 }
+
+void WallBlock::removeTurret() {
+	empty = true;
+	//Effectively ignores turret TODO make it nullable?
+
+}

@@ -30,6 +30,8 @@ class PositionedTexture { //Holds texture and it's x-y positioning
 			return *this;
 		}
 
+
+
 		
 };
 

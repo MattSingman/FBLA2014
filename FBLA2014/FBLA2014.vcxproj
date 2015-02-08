@@ -50,7 +50,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2Test.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2Test.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -76,6 +76,7 @@
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="PathBlock.cpp" />
     <ClCompile Include="PositionedTexture.cpp" />
+    <ClCompile Include="TextTexture.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="turret.cpp" />
     <ClCompile Include="turretButton.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="PathBlock.h" />
     <ClInclude Include="PositionedTexture.h" />
+    <ClInclude Include="TextTexture.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="turret.h" />
     <ClInclude Include="turretButton.h" />

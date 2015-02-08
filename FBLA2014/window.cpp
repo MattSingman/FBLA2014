@@ -73,6 +73,12 @@ window::window() { //TODO: Music
 							}
 							if (turretType != "") {
 								wallBlock.addTurret(turretType, turretTexture);
+								currentGame.subtractMoney(wallBlock.getChildTurret().getCost());
+								if (currentGame.getMoney() < 0) { //If player cannot pay for the turret
+									currentGame.addMoney(wallBlock.getChildTurret().getCost());
+									wallBlock.removeTurret();
+									
+								}
 							}
 							break;
 						}
@@ -116,6 +122,13 @@ window::window() { //TODO: Music
 					textures.push_back(turretButton.getChildPosTexture());
 				}
 			}
+			SDL_Color white = { 255, 255, 255 }; //The color white, for coloring the font
+			//Create text box for money count
+			int moneyCount = currentGame.getMoney();
+			std::string moneyCountString = "Money:" + std::to_string(moneyCount) + " Credits"; //Convert int to string for display
+			const char* moneyCountCString = moneyCountString.c_str();
+			TextTexture money = TextTexture(moneyCountCString, white, 1066, 500, renderer);
+			textures.push_back(money.getPosTexture());
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000) {
@@ -224,8 +237,9 @@ void window::newGame() {
 			
 		}
 	}
+	currentGame = game();
 	
-	
+
 
 }
 
