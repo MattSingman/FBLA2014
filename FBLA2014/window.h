@@ -13,6 +13,7 @@
 #include "WallBlock.h"
 #include "game.h"
 #include "TextTexture.h"
+#include "File.h"
 
 
 #ifndef WINDOW_H  //avoid multiple inclusion

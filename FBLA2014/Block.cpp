@@ -26,12 +26,12 @@ PositionedTexture Block::placeOnScreen(int x, int y) {
 
 	SDL_Surface* surfaceScan = IMG_Load(pathScanned);  //Load scanned texture
 	SDL_Texture* textureScan = SDL_CreateTextureFromSurface(containerWindow->getRenderer(), surfaceScan); //Create texture
-	//SDL_FreeSurface(surfaceScan);
+	SDL_FreeSurface(surfaceScan);
 	scannedTexture = PositionedTexture(textureScan, dstrect, 0);
 
 	SDL_Surface* surfaceUnScan = IMG_Load(pathUnscanned);  //Load unscanned texture
 	SDL_Texture* textureUnScan = SDL_CreateTextureFromSurface(containerWindow->getRenderer(), surfaceUnScan); //Create texture
-	//SDL_FreeSurface(surfaceUnScan);
+	SDL_FreeSurface(surfaceUnScan);
 	unScannedTexture = PositionedTexture(textureUnScan, dstrect, 0);
 
 	if (scanned) {

@@ -162,6 +162,8 @@ window::window() { //TODO: Music
 			textures.push_back(hp.getPosTexture());
 
 			textures.push_back(playButton.getTexture()); //Add play button
+
+	
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000) {
