@@ -15,6 +15,7 @@ class PositionedTexture { //Holds texture and it's x-y positioning
 		PositionedTexture();
 		PositionedTexture(SDL_Texture*, int, int, int, int, int); //Constructor
 		PositionedTexture(SDL_Texture*, SDL_Rect, int);//Constructor
+		~PositionedTexture();//Destructor
 		SDL_Texture* getTexture() const { return texture; };
 		int getXPos() const{ return dstrect.x; };
 		int getYPos() const{ return dstrect.y; };

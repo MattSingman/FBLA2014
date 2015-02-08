@@ -44,6 +44,8 @@ class window{
 	std::vector<PathBlock> pathBlocks; //vector of path blocks (what enemy can walk on)
 	Button playButton;
 
+	TTF_Font* textFont;
+
 	game currentGame;
 	
 	bool quit = false; //user has not quit

@@ -12,6 +12,8 @@ window::window() { //TODO: Music
 	//Start FPS counter
 	fpsTimer.start(); 
 
+	TTF_Init();
+	textFont = TTF_OpenFont("../art/Fonts/font.ttf", 25);
 
 	while (!quit) { //main loop TODO: exit game while in game!
 		//Start fps cap timer
@@ -149,14 +151,14 @@ window::window() { //TODO: Music
 			int moneyCount = currentGame.getMoney();
 			std::string moneyCountString = "Money:" + std::to_string(moneyCount) + " Credits"; //Convert int to string for display
 			const char* moneyCountCString = moneyCountString.c_str();
-			TextTexture money = TextTexture(moneyCountCString, white, 1066, 500, renderer);
+			TextTexture money = TextTexture(moneyCountCString, white, textFont, 1066, 500, renderer);
 			textures.push_back(money.getPosTexture());
 
 			//Create text box for HP
 			int hpCount = currentGame.getHP();
 			std::string hpString = "HP:" + std::to_string(hpCount) + "%"; //Convert int to string for display
 			const char* hpCString = hpString.c_str();
-			TextTexture hp = TextTexture(hpCString, white, 1066, 550, renderer);
+			TextTexture hp = TextTexture(hpCString, white, textFont, 1066, 550, renderer);
 			textures.push_back(hp.getPosTexture());
 
 			textures.push_back(playButton.getTexture()); //Add play button
@@ -210,9 +212,13 @@ void window::close() { //TODO MenuItems close themselves
 	SDL_DestroyRenderer(renderer);
 	renderer = NULL;
 
+	textFont = NULL; //Destroy font
+	TTF_CloseFont(textFont);
+
 	//Quit SDL subsystems
 	IMG_Quit();
-	SDL_Quit();
+	SDL_Quit();	
+	TTF_Quit();
 }
 //start a new game
 void window::newGame() {

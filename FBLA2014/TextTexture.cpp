@@ -1,20 +1,21 @@
 #include "TextTexture.h"
 
-TextTexture::TextTexture(const char* textToDisplay, SDL_Color displayColor, int x, int y, SDL_Renderer* windowRenderer) {
+TextTexture::TextTexture(const char* textToDisplay, SDL_Color displayColor, TTF_Font* fontToUse, int x, int y, SDL_Renderer* windowRenderer) {
 	text = textToDisplay;
 	color = displayColor;
 	renderer = windowRenderer;
 
 	xPos = x;
 	yPos = y;
-	TTF_Init();
-	font = TTF_OpenFont("../art/Fonts/font.ttf", 25);
+	TTF_Init(); //TODO pass in font?
+	font = fontToUse;
+	
 	//Render text surface
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, color);
 
-	const char* le = TTF_GetError();
 	//Create texture from surface pixels
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	les = SDL_GetError();
 	width = textSurface->w;
 	height = textSurface->h;
 
@@ -22,4 +23,6 @@ TextTexture::TextTexture(const char* textToDisplay, SDL_Color displayColor, int 
 	SDL_FreeSurface(textSurface);
 
 	posTexture = PositionedTexture(texture, x, y, width, height, 0);
+
+
 }

@@ -22,9 +22,11 @@ class TextTexture {
 
 	int width;
 	int height;
+	const char* les;
+	const char* le;
 
 public:
-	TextTexture(const char*, SDL_Color, int, int, SDL_Renderer* );
+	TextTexture(const char*, SDL_Color, TTF_Font*, int, int, SDL_Renderer*);
 	const char* getText() const { return text; };
 	void setText(const char* change) { text = change; };
 	int getWidth() const { return width; };

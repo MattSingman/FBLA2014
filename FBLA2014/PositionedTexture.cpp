@@ -30,3 +30,8 @@ void PositionedTexture::setRect(int x, int y, int h, int w) {
 
 }
 PositionedTexture::PositionedTexture() {};
+
+PositionedTexture::~PositionedTexture() {
+	texture = NULL;
+	SDL_DestroyTexture(texture);
+}
