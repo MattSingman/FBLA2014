@@ -5,14 +5,13 @@ turret::turret(const char* turretType, PositionedTexture turretTexture) {
 	posTexture = turretTexture;
 
 	if (type == "scanner") { //The cost of one scanner
-		cost = 900;
+		cost = 800;
 	}
 	else if (type == "delete") {
 		cost = 200; 
 	}
 	else {
-		//Quar
+		//Quar TODO learn to spell that
 		cost = 50;
 	}
-
 }

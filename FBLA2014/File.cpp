@@ -9,7 +9,7 @@ File::File(const char* enemyArt, const char* friendlyArt, bool isEnemy, double s
 	attackDamage = attack;
 
 	preciseXPos = 0.0; xPos = (int)preciseXPos;
-	preciseYPos = 736.0; yPos = (int)preciseYPos;
+	preciseYPos = 704.0; yPos = (int)preciseYPos;
 
 	SDL_Rect dstrect;//SDL_Rect telling location to place, x and y correspond to coords to place surface, from top left
 	dstrect.h = HEIGHT; dstrect.w = WIDTH; //Height and width are the same for each item
@@ -52,24 +52,37 @@ bool File::isAlive() {
 	}
 }
 
+void File::setStunned(bool change) {
+	stunned = change;
+	if (stunned) {
+		stunnedFramesLeft = 120;
+	}
+}
+
 void File::move() {
 
+	--stunnedFramesLeft;
+	if (stunnedFramesLeft == 0) {
+		stunned = false;
+	}
 
-	if (std::string(movementDirection) == "U") {
-		preciseYPos -= movementSpeed;
-		yPos = (int)preciseYPos;
-	}
-	else if (std::string(movementDirection) == "D"){
-		preciseYPos += movementSpeed;
-		yPos = (int)preciseYPos;
-	}
-	else if (std::string(movementDirection) == "L"){
-		preciseXPos -= movementSpeed;
-		xPos = (int)preciseXPos;
-	}
-	else if (std::string(movementDirection) == "R") {
-		preciseXPos += movementSpeed;
-		xPos = (int)preciseXPos;
+	if (!stunned) {
+		if (std::string(movementDirection) == "U") {
+			preciseYPos -= movementSpeed;
+			yPos = (int)preciseYPos;
+		}
+		else if (std::string(movementDirection) == "D"){
+			preciseYPos += movementSpeed;
+			yPos = (int)preciseYPos;
+		}
+		else if (std::string(movementDirection) == "L"){
+			preciseXPos -= movementSpeed;
+			xPos = (int)preciseXPos;
+		}
+		else if (std::string(movementDirection) == "R") {
+			preciseXPos += movementSpeed;
+			xPos = (int)preciseXPos;
+		}
 	}
 
 	if (scanned) {
@@ -91,5 +104,15 @@ void File::setScanned(bool change) {
 	else {
 		posTexture = friendTexture;
 	}
+}
+
+PositionedTexture File::getPosTexture() {
+	if (scanned) {
+		posTexture = enemyTexture;
+	}
+	else {
+		posTexture = friendTexture;
+	}
+	return posTexture;
 }
 

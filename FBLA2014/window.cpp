@@ -280,8 +280,8 @@ void window::newGame() {
 				newPathBlock.placeOnScreen(j * 64, i * 64);
 				textures.push_back(newPathBlock.getTexture());
 				if (newPathBlock.getGridX() == 0 && newPathBlock.getGridY() == 11) {
-					newPathBlock.addFile(File("../art/wordDocumentEnemy.bmp", "../art/WordDocumentFriend.bmp", true,
-						5, 2, 2, renderer));
+					newPathBlock.addFile(File("../art/floppyDiskEnemy.bmp", "../art/floppyDiskFriend.bmp", true,
+						.5, 2, 2, renderer));
 				}
 				pathBlocks.push_back(newPathBlock);
 			}

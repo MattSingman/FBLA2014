@@ -27,7 +27,6 @@ bool PathBlock::isInsideBlock(File fileToCheck) {
 	if (insidePos(fileX, fileY) || //Check to see if box has any part inside of Block
 		insidePos(fileX + fileWidth, (fileY)) || 
 		insidePos(fileX, fileY + fileHeight) ||
-		insidePos((fileX - fileWidth), fileY) ||  
 		insidePos((fileX - fileWidth), (fileY - fileHeight)));
 		//remains inside
 

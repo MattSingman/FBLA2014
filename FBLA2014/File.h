@@ -17,6 +17,9 @@ class File {
 	bool enemy;  //Whether the file is a virus or not when put under the scanner
 	bool scanned = false; //Whether file is being scanned
 
+	bool stunned = false;
+	int stunnedFramesLeft;
+
 	const char* movementDirection;
 
 	double movementSpeed; //in pixels/frame
@@ -49,6 +52,9 @@ public:
 	bool isScanned() const { return scanned; };
 	void setScanned(bool);
 
+	bool getStunned() const { return stunned; };
+	void setStunned(bool);
+
 	const char* getMovementDirection() const { return movementDirection; };
 	void setMovementDirection(const char* newDirection) { movementDirection = newDirection; };
 
@@ -63,7 +69,7 @@ public:
 
 	void move();
 
-	PositionedTexture getPosTexture() const{ return posTexture; };
+	PositionedTexture getPosTexture();
 
 	File& File::operator=(const File &rhs) { //Equality overload
 		enemy = rhs.enemy;
