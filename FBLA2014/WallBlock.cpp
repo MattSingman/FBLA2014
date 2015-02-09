@@ -27,3 +27,19 @@ void WallBlock::removeTurret() {
 	//Effectively ignores turret TODO make it nullable?
 
 }
+
+void WallBlock::checkFireChances(std::vector<PathBlock>* pathBlocks) {
+	childTurret.markFrame();
+	if (!isEmpty() && childTurret.getFramesUntilNextShot() == 0) {
+		if (childTurret.getType() == "quarantine" || childTurret.getType() == "delete") {
+
+			for (auto& pathBlock : *pathBlocks) { //TODO make it pick the target more logically
+				if (pathBlock.hasFiles() && pathBlock.getScanned()) {
+					std::vector<File>& files = pathBlock.getFiles();
+					File& target = files[0];
+					childTurret.fire(target);
+				}
+			}
+		}
+	}
+}

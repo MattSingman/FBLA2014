@@ -52,16 +52,18 @@ bool File::isAlive() {
 	}
 }
 
-void File::setStunned(bool change) {
+void File::setStunned(bool change, int stunnedFrames) {
 	stunned = change;
 	if (stunned) {
-		stunnedFramesLeft = 120;
+		stunnedFramesLeft = stunnedFrames;
 	}
 }
 
 void File::move() {
 
-	--stunnedFramesLeft;
+	if (stunnedFramesLeft > 0) {
+		--stunnedFramesLeft;
+	}
 	if (stunnedFramesLeft == 0) {
 		stunned = false;
 	}

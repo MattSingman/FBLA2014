@@ -31,14 +31,18 @@ bool PathBlock::isInsideBlock(File fileToCheck) {
 		//remains inside
 
 	else {
-		inside = false; //Otherwise all 4 corners are outside of box
+		inside = false; //Otherwise all of the file is outside of block
 	}
 
 	return inside;
 }
 
 void PathBlock::checkFiles(std::vector<PathBlock>* pathBlocks, game* currentGame) {
-	std::vector<int> indexesToRemove;
+	for (int i = 0; i < files.size(); ++i) {
+		if (!files[i].isAlive()) {
+			files.resize(std::remove(files.begin(), files.end(), files[i]) - files.begin());
+		}
+	}
 	for (int i = 0; i < files.size(); ++i) {
 		if (!(isInsideBlock(files[i]))) { //If outside block
 			giveTurret(files[i], pathBlocks, currentGame);
@@ -92,4 +96,12 @@ void PathBlock::setScanned(bool change) {
 			file.setScanned(scanned);
 		}
 	}
+}
+
+bool PathBlock::hasFiles() {
+	bool hasFiles = false;
+	if (files.size() > 0) {
+		hasFiles = true;
+	}
+	return hasFiles;
 }

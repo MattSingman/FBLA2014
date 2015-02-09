@@ -1,9 +1,12 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
+#include <vector>
 #include "PositionedTexture.h"
 #include "Block.h"
 #include "turret.h"
+#include "PathBlock.h"
+#include "File.h"
 
 #ifndef WALL_BLOCK_H
 #define WALL_BLOCK_H
@@ -29,6 +32,8 @@ public:
 	int getYPos() const { return posTexture.getYPos(); };
 
 	void removeTurret();
+
+	void checkFireChances(std::vector<PathBlock>*);
 
 
 	WallBlock& WallBlock::operator=(const WallBlock &rhs) { //Equality overload

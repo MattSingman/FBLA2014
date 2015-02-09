@@ -3,6 +3,7 @@
 #include <string>
 #include "PositionedTexture.h"
 #include "Button.h"
+#include "File.h"
 
 
 #ifndef TURRET_H
@@ -15,16 +16,37 @@ class turret : public Button {
 	const int HEIGHT = 64;
 	
 	int cost;
+	int damage=0;
+	int stunnedCooldown=0;
+	int fireRate; //in frames
+
+	int framesUntilNextShot = 0;
 public:
 	turret() {};
 	turret(const char*, PositionedTexture);
 
+	const char* getType() const { return type; };
+
 	int getCost() const { return cost; };
+	int getDamage() const { return damage; };
+	int getStunCooldown() const { return stunnedCooldown; };
+
+	void markFrame();
+	int getFramesUntilNextShot() const { return framesUntilNextShot; };
+	void setFramesUntilNextShot(int change) { framesUntilNextShot = change; };
+
+	int getFireRate() const { return fireRate; };
+
+	void fire(File&);
 
 	turret& turret::operator=(const turret &rhs) {
 		posTexture = rhs.posTexture;
 		type = rhs.type;
 		cost = rhs.cost;
+		damage = rhs.damage;
+		stunnedCooldown = rhs.stunnedCooldown;
+		framesUntilNextShot = rhs.framesUntilNextShot;
+		fireRate = rhs.fireRate;
 		return *this;
 	}
 	

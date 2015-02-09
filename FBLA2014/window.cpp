@@ -134,15 +134,16 @@ window::window() { //TODO: Music
 			for (auto& wallBlock : wallBlocks) {
 				textures.push_back(wallBlock.getTexture());
 				if (!(wallBlock.isEmpty())) {
+					wallBlock.checkFireChances(&pathBlocks);
 					textures.push_back(wallBlock.getChildTurret().getTexture());
 				}
 			}
 			for (auto& pathBlock : pathBlocks) {
 				textures.push_back(pathBlock.getTexture());
 				pathBlock.checkFiles(&pathBlocks, &currentGame);
-				std::vector<File>* pathBlockFiles = (pathBlock.getFiles());
-				if (pathBlockFiles->size()) {
-					for (auto& file : *pathBlockFiles) {
+				std::vector<File>& pathBlockFiles = (pathBlock.getFiles());
+				if (pathBlockFiles.size()) {
+					for (auto& file : pathBlockFiles) {
 						file.move();
 						textures.push_back(file.getPosTexture());
 					}

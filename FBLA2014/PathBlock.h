@@ -27,7 +27,8 @@ public:
 
 	void addFile(File);
 
-	std::vector<File>* getFiles() { return &(files); };
+	std::vector<File>& getFiles() { return files; };
+	bool hasFiles();
 
 	void checkFiles(std::vector<PathBlock>*, game*);
 	bool isInsideBlock(File);

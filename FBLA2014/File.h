@@ -18,7 +18,7 @@ class File {
 	bool scanned = false; //Whether file is being scanned
 
 	bool stunned = false;
-	int stunnedFramesLeft;
+	int stunnedFramesLeft = 0;
 
 	const char* movementDirection;
 
@@ -53,7 +53,7 @@ public:
 	void setScanned(bool);
 
 	bool getStunned() const { return stunned; };
-	void setStunned(bool);
+	void setStunned(bool, int);
 
 	const char* getMovementDirection() const { return movementDirection; };
 	void setMovementDirection(const char* newDirection) { movementDirection = newDirection; };
