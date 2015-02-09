@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include<SDL_image.h>
+#include <string>
 #include "PositionedTexture.h"
 
 #ifndef FILE_H
@@ -35,10 +36,13 @@ class File {
 	double preciseYPos;
 
 public:
+	File() {};
 	File(const char*, const char*, bool, double, int,int, SDL_Renderer*);
 
 	const int getWidth() const { return WIDTH; };
 	const int getHeight() const { return HEIGHT; };
+	int getXPos() const { return xPos; };
+	int getYPos() const { return yPos; };
 
 	bool isEnemy() const { return enemy; };
 
@@ -69,12 +73,40 @@ public:
 		movementDirection = rhs.movementDirection;
 		movementSpeed = rhs.movementSpeed;
 		posTexture = rhs.posTexture;
+		enemyTexture = rhs.enemyTexture;
+		friendTexture = rhs.friendTexture;
 		xPos = rhs.xPos;
 		yPos = rhs.yPos; 
+		preciseXPos = rhs.preciseXPos;
+		preciseYPos = rhs.preciseYPos;
 		hp = rhs.hp;
 		attackDamage = rhs.attackDamage;
 		return *this;
 	}
+	File& File::operator=(const int &rhs) { //Equality overload
+		if (rhs == NULL) {
+			enemy = NULL;
+			scanned = NULL;
+			enemyArtPath = NULL;
+			friendlyArtPath = NULL;
+			movementDirection = NULL;
+			movementSpeed = NULL;
+			xPos = NULL;
+			yPos = NULL;
+			preciseXPos = NULL;
+			preciseYPos = NULL;
+			hp = NULL;
+			attackDamage = NULL;
+		}
+		return *this;
+	}
+	
+	bool File::operator==(const File &rhs) {
+		return (isEnemy() == rhs.isEnemy() && getXPos() == rhs.getXPos() &&
+			getYPos() == rhs.getYPos());
+	}
 };
+
+
 
 #endif

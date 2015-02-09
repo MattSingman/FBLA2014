@@ -139,6 +139,14 @@ window::window() { //TODO: Music
 			}
 			for (auto& pathBlock : pathBlocks) {
 				textures.push_back(pathBlock.getTexture());
+				pathBlock.checkFiles(&pathBlocks, &currentGame);
+				std::vector<File>* pathBlockFiles = (pathBlock.getFiles());
+				if (pathBlockFiles->size()) {
+					for (auto& file : *pathBlockFiles) {
+						file.move();
+						textures.push_back(file.getPosTexture());
+					}
+				}
 			}
 			for (auto& turretButton : turretButtons) {
 				textures.push_back(turretButton.getTexture());
@@ -268,9 +276,13 @@ void window::newGame() {
 				wallBlocks.push_back(newBlock);
 			}
 			else {
-				PathBlock newPathBlock = PathBlock("../art/path.bmp", "../art/pathScanned.bmp", this, j, i, gamePath[i][j].c_str());
+				PathBlock newPathBlock = PathBlock("../art/path.bmp", "../art/pathScanned.bmp", j, i, gamePath[i][j].c_str(), this);
 				newPathBlock.placeOnScreen(j * 64, i * 64);
 				textures.push_back(newPathBlock.getTexture());
+				if (newPathBlock.getGridX() == 0 && newPathBlock.getGridY() == 11) {
+					newPathBlock.addFile(File("../art/wordDocumentEnemy.bmp", "../art/WordDocumentFriend.bmp", true,
+						5, 2, 2, renderer));
+				}
 				pathBlocks.push_back(newPathBlock);
 			}
 			

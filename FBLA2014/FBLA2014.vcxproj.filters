@@ -115,5 +115,55 @@
     <Image Include="..\art\quit.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\art\block.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\blockScanned.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\computerTower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\delete.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\deleteButton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\gameBackground.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\path.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\pathScanned.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\play.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\quarantine.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\quarantineButton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\scanner.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\scannerButton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\wordDocumentEnemy.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\wordDocumentFriend.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\art\Fonts\font.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

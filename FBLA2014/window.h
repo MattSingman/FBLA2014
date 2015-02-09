@@ -31,7 +31,7 @@ class window{
 
 	//Constants for MenuItem positioning, see MenuItem.h for further details
 	const int MenuItemX = SCREEN_WIDTH/2; //Gives where CENTER of MenuItem should be
-	const int MenuItemY = SCREEN_HEIGHT / 20; //Gives how much seperates top from first item and bottom from last //TODO, keep working on y positioning
+	const int MenuItemY = SCREEN_HEIGHT / 6; //Gives how much seperates top from first item and bottom from last //TODO, keep working on y positioning
 
 	SDL_Window* mainWindow; //The window
 	SDL_Surface* screen; //surface in window

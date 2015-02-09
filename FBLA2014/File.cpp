@@ -8,8 +8,8 @@ File::File(const char* enemyArt, const char* friendlyArt, bool isEnemy, double s
 	hp = health;
 	attackDamage = attack;
 
-	preciseXPos = 0.0; xPos = preciseXPos;
-	preciseYPos = 736.0; yPos = preciseYPos;
+	preciseXPos = 0.0; xPos = (int)preciseXPos;
+	preciseYPos = 736.0; yPos = (int)preciseYPos;
 
 	SDL_Rect dstrect;//SDL_Rect telling location to place, x and y correspond to coords to place surface, from top left
 	dstrect.h = HEIGHT; dstrect.w = WIDTH; //Height and width are the same for each item
@@ -20,13 +20,13 @@ File::File(const char* enemyArt, const char* friendlyArt, bool isEnemy, double s
 	SDL_Surface* surfaceFriend = IMG_Load(friendlyArtPath);  //Load unscanned texture
 	SDL_Texture* textureFriend = SDL_CreateTextureFromSurface(renderer, surfaceFriend); //Create texture
 	SDL_FreeSurface(surfaceFriend);
-	friendTexture = PositionedTexture(textureFriend, dstrect, 0);
+	friendTexture = PositionedTexture(textureFriend, dstrect, 1);
 
 	if (enemy){
 		SDL_Surface* surfaceEnemy = IMG_Load(enemyArtPath);  //Load scanned texture
 		SDL_Texture* textureEnemy = SDL_CreateTextureFromSurface(renderer, surfaceEnemy); //Create texture
 		SDL_FreeSurface(surfaceEnemy);
-		enemyTexture = PositionedTexture(textureEnemy, dstrect, 0);
+		enemyTexture = PositionedTexture(textureEnemy, dstrect, 1);
 	}
 	else { //If not enemy, enemy and friend texture are the same
 		enemyTexture = friendTexture;
@@ -54,6 +54,33 @@ bool File::isAlive() {
 
 void File::move() {
 
+
+	if (std::string(movementDirection) == "U") {
+		preciseYPos -= movementSpeed;
+		yPos = (int)preciseYPos;
+	}
+	else if (std::string(movementDirection) == "D"){
+		preciseYPos += movementSpeed;
+		yPos = (int)preciseYPos;
+	}
+	else if (std::string(movementDirection) == "L"){
+		preciseXPos -= movementSpeed;
+		xPos = (int)preciseXPos;
+	}
+	else if (std::string(movementDirection) == "R") {
+		preciseXPos += movementSpeed;
+		xPos = (int)preciseXPos;
+	}
+
+	if (scanned) {
+		enemyTexture.setRect(xPos, yPos, HEIGHT, WIDTH);
+		posTexture = enemyTexture;
+	}
+	else {
+		friendTexture.setRect(xPos, yPos, HEIGHT, WIDTH);
+		posTexture = friendTexture;
+
+	}
 }
 
 void File::setScanned(bool change) {
@@ -65,3 +92,4 @@ void File::setScanned(bool change) {
 		posTexture = friendTexture;
 	}
 }
+

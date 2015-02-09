@@ -100,11 +100,29 @@
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\art\block.bmp" />
+    <Image Include="..\art\blockScanned.bmp" />
+    <Image Include="..\art\computerTower.bmp" />
+    <Image Include="..\art\delete.bmp" />
+    <Image Include="..\art\deleteButton.bmp" />
+    <Image Include="..\art\gameBackground.bmp" />
     <Image Include="..\art\help.bmp" />
     <Image Include="..\art\menu.bmp" />
     <Image Include="..\art\newGame.bmp" />
     <Image Include="..\art\options.bmp" />
+    <Image Include="..\art\path.bmp" />
+    <Image Include="..\art\pathScanned.bmp" />
+    <Image Include="..\art\play.bmp" />
+    <Image Include="..\art\quarantine.bmp" />
+    <Image Include="..\art\quarantineButton.bmp" />
     <Image Include="..\art\quit.bmp" />
+    <Image Include="..\art\scanner.bmp" />
+    <Image Include="..\art\scannerButton.bmp" />
+    <Image Include="..\art\wordDocumentEnemy.bmp" />
+    <Image Include="..\art\wordDocumentFriend.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\art\Fonts\font.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

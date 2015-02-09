@@ -41,8 +41,8 @@ public:
 
 	int getGridX() const { return gridX; };
 	int getGridY() const { return gridY; };
-	int getXPos() const { return xPos; };
-	int getYPos() const { return yPos; };
+	int getXPos() const { return posTexture.getXPos(); };
+	int getYPos() const { return posTexture.getYPos(); };
 	const int getItemWidth() const { return WIDTH; };
 	const int getItemHeight() const { return HEIGHT; };
 
