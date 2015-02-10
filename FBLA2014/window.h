@@ -4,6 +4,7 @@
 #include <string>
 #include <functional>
 #include <array>
+#include <time.h>  
 #include "MenuItem.h"
 #include "PositionedTexture.h"
 #include "timer.h"

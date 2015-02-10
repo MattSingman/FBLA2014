@@ -8,6 +8,8 @@ window::window() { //TODO: Music
 	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED); //Create renderer
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
 	createMenu();
+
+	srand(time(NULL)); //Random number seed
 	
 	//Start FPS counter
 	fpsTimer.start(); 
@@ -103,7 +105,6 @@ window::window() { //TODO: Music
 												pathBlockScan.setScanned(true);
 											}
 										}
-
 									}
 								}
 							}
@@ -132,12 +133,12 @@ window::window() { //TODO: Music
 				}
 				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox && frameUntilNextKeyPressRegistered == 0) {
 					frameUntilNextKeyPressRegistered = 10;
-					if (currentGame.hasNextBox()) {
-						currentGame.nextBox();
-					}
-					else {
+					if (!currentGame.hasNextBox()) {
 						dialogBox = false;
 					}
+					currentGame.nextBox();
+
+
 				}
 
 
@@ -188,6 +189,17 @@ window::window() { //TODO: Music
 
 			textures.push_back(playButton.getTexture()); //Add play button
 
+			if (!dialogBox) {
+				bool enemiesOnScreen = false;
+				for (auto& pathBlock : pathBlocks) {
+					if (pathBlock.hasFiles()) {
+						enemiesOnScreen = true;
+						break;
+					}
+				}
+				currentGame.waveComplete();
+				dialogBox = true;
+			}
 
 	
 		}
@@ -312,12 +324,6 @@ void window::newGame() {
 				PathBlock newPathBlock = PathBlock("../art/path.bmp", "../art/pathScanned.bmp", j, i, gamePath[i][j].c_str(), this);
 				newPathBlock.placeOnScreen(j * 64, i * 64);
 				textures.push_back(newPathBlock.getTexture());
-				if (newPathBlock.getGridX() == 0 && newPathBlock.getGridY() == 11) {
-					newPathBlock.addFile(File("../art/floppyDiskEnemy.bmp", "../art/floppyDiskFriend.bmp", true,
-						.5, 2, 2, renderer));
-					newPathBlock.addFile(File("../art/wordDocumentEnemy.bmp", "../art/wordDocumentFriend.bmp", false,
-						2, 10, 10, renderer));
-				}
 				pathBlocks.push_back(newPathBlock);
 			}
 			

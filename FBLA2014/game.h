@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include "MessageBox.h"
+#include "File.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -18,6 +19,9 @@ class game {
 	SDL_Renderer* renderer;
 	
 	std::vector<MessageBox> messageBoxes;
+
+	std::vector<File> allPossibleFiles;
+	std::vector<File> fileChoices;
 
 public:
 	game() {};
@@ -35,6 +39,10 @@ public:
 	
 	void nextBox();
 
+	void waveComplete();
+
+	File getEnemy();
+
 	MessageBox getFirstMessageBox() const { return messageBoxes[0]; };
 	
 	game& game::operator=(const game &rhs) { //Equality overload
@@ -43,6 +51,9 @@ public:
 		wave = rhs.wave;
 		font = rhs.font;
 		renderer = rhs.renderer;
+		messageBoxes = rhs.messageBoxes;
+		allPossibleFiles = rhs.allPossibleFiles;
+		fileChoices = rhs.fileChoices;
 		return *this;
 	}
 
