@@ -78,7 +78,7 @@ void PathBlock::giveTurret(File fileToGive, std::vector<PathBlock>* pathBlocks, 
 		}
 
 	}
-	if (!gaveFile) { //If no other path found, it hit the end and will hurt the computer HP
+	if (!gaveFile && fileToGive.isEnemy()) { //If no other path found, it hit the end and will hurt the computer HP
 		currentGame->giveDamage(fileToGive.getAttackDamage());
 	}
 }

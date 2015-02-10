@@ -63,6 +63,7 @@ class window{
 	timer capTimer;
 	int countedFrames = 0;
 	int frameUntilNextKeyPressRegistered = 0;
+	int addFileCooldown = 0;
 
 	std::vector<std::vector<std::string>> gamePath; //Values assigned inside the newGame member function
 

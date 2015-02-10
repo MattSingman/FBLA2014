@@ -146,6 +146,10 @@ window::window() { //TODO:
 			
 		}
 		if (inGame) { //Screen must be updated if in game
+			if (addFileCooldown > 0) {
+				--addFileCooldown;
+			}
+			
 			textures.clear();
 			
 			for (auto& wallBlock : wallBlocks) {
@@ -156,6 +160,12 @@ window::window() { //TODO:
 				}
 			}
 			for (auto& pathBlock : pathBlocks) {
+				if (addFileCooldown == 0 && currentGame.getEnemiesLeft() > 0 && !dialogBox) {
+					if (pathBlock.getGridX() == 0 && pathBlock.getGridY() == 11 ) {
+						pathBlock.addFile(currentGame.getEnemy());
+						addFileCooldown = 120;
+					}
+				}
 				textures.push_back(pathBlock.getTexture());
 				pathBlock.checkFiles(&pathBlocks, &currentGame);
 				std::vector<File>& pathBlockFiles = (pathBlock.getFiles());
@@ -190,8 +200,10 @@ window::window() { //TODO:
 			textures.push_back(playButton.getTexture()); //Add play button
 
 			if (!dialogBox) {
+
 				bool enemiesOnScreen = false;
 				for (auto& pathBlock : pathBlocks) {
+					
 					if (pathBlock.hasFiles()) {
 						enemiesOnScreen = true;
 						break;
@@ -201,6 +213,7 @@ window::window() { //TODO:
 					currentGame.waveComplete();
 					dialogBox = true;
 				}
+				
 			}
 
 	
