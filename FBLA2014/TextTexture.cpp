@@ -7,7 +7,6 @@ TextTexture::TextTexture(const char* textToDisplay, SDL_Color displayColor, TTF_
 
 	xPos = x;
 	yPos = y;
-	TTF_Init(); //TODO pass in font?
 	font = fontToUse;
 	
 	//Render text surface
@@ -15,7 +14,6 @@ TextTexture::TextTexture(const char* textToDisplay, SDL_Color displayColor, TTF_
 
 	//Create texture from surface pixels
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
-	les = SDL_GetError();
 	width = textSurface->w;
 	height = textSurface->h;
 

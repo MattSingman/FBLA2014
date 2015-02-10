@@ -22,8 +22,7 @@ class TextTexture {
 
 	int width;
 	int height;
-	const char* les;
-	const char* le;
+
 
 public:
 	TextTexture(const char*, SDL_Color, TTF_Font*, int, int, SDL_Renderer*);

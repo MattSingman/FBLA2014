@@ -75,6 +75,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuItem.cpp" />
+    <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="PathBlock.cpp" />
     <ClCompile Include="PositionedTexture.cpp" />
     <ClCompile Include="TextTexture.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="MessageBox.h" />
     <ClInclude Include="PathBlock.h" />
     <ClInclude Include="PositionedTexture.h" />
     <ClInclude Include="TextTexture.h" />

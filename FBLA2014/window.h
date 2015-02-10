@@ -14,6 +14,7 @@
 #include "game.h"
 #include "TextTexture.h"
 #include "File.h"
+#include "MessageBox.h"
 
 
 #ifndef WINDOW_H  //avoid multiple inclusion
@@ -51,6 +52,7 @@ class window{
 	
 	bool quit = false; //user has not quit
 	bool inGame = false; //Is user playing or in menu?
+	bool dialogBox = false; //If dialog box is open
 	SDL_Event e; //Event handler
 
 	//The frames per second timer

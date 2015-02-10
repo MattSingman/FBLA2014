@@ -39,12 +39,15 @@ window::window() { //TODO: Music
 						(selected.getFunction())();
 					}
 				}
+				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
+					quit = true;
+				}
 			}
 			else { //If playing
 				if (e.type == SDL_QUIT) {
 					quit = true;
 				}
-				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) {
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && dialogBox == false) {
 					int mouseX, mouseY;
 					SDL_GetMouseState(&mouseX, &mouseY);
 					for (auto& turretButton : turretButtons) { //TODO If found, dont check for other possible interactions?
@@ -108,14 +111,14 @@ window::window() { //TODO: Music
 						}
 					}
 				}
-				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_RIGHT) {
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_RIGHT && dialogBox == false) {
 					for (auto& turretButton : turretButtons) {
 						if (turretButton.getSelected()) {
 							turretButton.setSelected(false);
 						}
 					}
 				}
-				else if (e.type == SDL_MOUSEMOTION) {
+				else if (e.type == SDL_MOUSEMOTION && dialogBox == false) {
 					for (auto& turretButton : turretButtons) {
 						if (turretButton.getSelected()) {
 							int mouseX, mouseY;
@@ -124,6 +127,15 @@ window::window() { //TODO: Music
 						}
 					}
 				}
+				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
+					quit = true;
+				}
+				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox) {
+ 					//if (currentGame.hasNextBox()) {
+
+					//}
+				}
+
 
 			}
 			
@@ -172,6 +184,7 @@ window::window() { //TODO: Music
 
 			textures.push_back(playButton.getTexture()); //Add play button
 
+
 	
 		}
 		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
@@ -183,7 +196,7 @@ window::window() { //TODO: Music
 
 		SDL_RenderCopy(renderer, background, NULL, NULL); //Render background
 
-		
+
 		for (int i = 0; i <= MAX_LEVEL; ++i) {
 			for (auto texture : textures) {
 				if (texture.getLevel() == i) {
@@ -191,7 +204,19 @@ window::window() { //TODO: Music
 				}
 				
 			}
+
 		}
+		if (dialogBox) { //Draw dialog box
+			SDL_Rect dialogBoxRect = { 400, 200, 600, 350 };
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+			SDL_RenderFillRect(renderer, &dialogBoxRect);
+
+			MessageBox boxToDisplay = currentGame.getFirstMessageBox();
+			SDL_RenderCopy(renderer, boxToDisplay.getPosTextureText().getTexture(), NULL, boxToDisplay.getPosTextureText().getRect());
+			SDL_RenderCopy(renderer, boxToDisplay.getPosTextureOK().getTexture(), NULL, boxToDisplay.getPosTextureOK().getRect());
+
+		}
+
 
 		//Update screen
 		SDL_RenderPresent(renderer);
@@ -283,6 +308,8 @@ void window::newGame() {
 				if (newPathBlock.getGridX() == 0 && newPathBlock.getGridY() == 11) {
 					newPathBlock.addFile(File("../art/floppyDiskEnemy.bmp", "../art/floppyDiskFriend.bmp", true,
 						.5, 2, 2, renderer));
+					newPathBlock.addFile(File("../art/wordDocumentEnemy.bmp", "../art/wordDocumentFriend.bmp", false,
+						2, 10, 10, renderer));
 				}
 				pathBlocks.push_back(newPathBlock);
 			}
@@ -291,17 +318,16 @@ void window::newGame() {
 	}
 	playButton = Button("../art/play.bmp", this);
 	playButton.placeOnScreen(1066, 600); //Play button starts wave
-	currentGame = game();
+	currentGame = game(renderer, textFont);
+	currentGame.showTutorial();
+	dialogBox = true;
 	
 
 
 
 }
 
-//Shows instructions on how to play
-void window::showHelp() {
 
-}
 //Quits program
 void window::quitWindow() {
 	quit = true;
@@ -313,11 +339,6 @@ void window::createMenu() {
 	std::function<void()> newGameFunction = std::bind(&window::newGame,this);
 	MenuItem newGameOption = MenuItem("../art/newGame.bmp", newGameFunction, this);  //New game option
 	menuItems.push_back(newGameOption); //Adds to array of MenuItems
-
-
-	std::function<void()> showHelpFunction = std::bind(&window::showHelp,this);
-	MenuItem helpOption = MenuItem("../art/help.bmp", showHelpFunction, this); //Show help 
-	menuItems.push_back(helpOption);
 
 	std::function<void()> quitWindowFunction = std::bind(&window::quitWindow,this);
 	MenuItem quitOption = MenuItem("../art/quit.bmp", quitWindowFunction, this); //Quit
