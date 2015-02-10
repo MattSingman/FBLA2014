@@ -20,8 +20,9 @@ class game {
 	
 	std::vector<MessageBox> messageBoxes;
 
-	std::vector<File> allPossibleFiles;
 	std::vector<File> fileChoices;
+
+	int enemiesLeft = 0;
 
 public:
 	game() {};
@@ -33,6 +34,8 @@ public:
 
 	int getHP() const { return computerHP; };
 	void giveDamage(int);
+
+	int getEnemiesLeft() const { return enemiesLeft; };
 
 	void showTutorial();
 	bool hasNextBox();
@@ -52,8 +55,8 @@ public:
 		font = rhs.font;
 		renderer = rhs.renderer;
 		messageBoxes = rhs.messageBoxes;
-		allPossibleFiles = rhs.allPossibleFiles;
 		fileChoices = rhs.fileChoices;
+		enemiesLeft = rhs.enemiesLeft;
 		return *this;
 	}
 

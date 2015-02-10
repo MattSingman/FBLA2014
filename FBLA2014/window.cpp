@@ -1,6 +1,7 @@
 #include "window.h"
 
-window::window() { //TODO: Music
+window::window() { //TODO: 
+
 	SDL_Init(SDL_INIT_EVERYTHING);//initialize SDL
 	mainWindow = SDL_CreateWindow("Bob's Tower Defense", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 32); //create Window TODO: Change window name
 
@@ -9,7 +10,6 @@ window::window() { //TODO: Music
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
 	createMenu();
 	srand(time(NULL)); //Random number seed
-	Mix_Music * mscMusic = NULL;
 
 	//Start FPS counter
 	fpsTimer.start(); 
@@ -197,8 +197,10 @@ window::window() { //TODO: Music
 						break;
 					}
 				}
-				currentGame.waveComplete();
-				dialogBox = true;
+				if (!enemiesOnScreen && currentGame.getEnemiesLeft() == 0) {
+					currentGame.waveComplete();
+					dialogBox = true;
+				}
 			}
 
 	
