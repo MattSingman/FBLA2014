@@ -130,10 +130,14 @@ window::window() { //TODO: Music
 				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
 					quit = true;
 				}
-				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox) {
- 					//if (currentGame.hasNextBox()) {
-
-					//}
+				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox && frameUntilNextKeyPressRegistered == 0) {
+					frameUntilNextKeyPressRegistered = 10;
+					if (currentGame.hasNextBox()) {
+						currentGame.nextBox();
+					}
+					else {
+						dialogBox = false;
+					}
 				}
 
 
@@ -226,6 +230,9 @@ window::window() { //TODO: Music
 		if (frameTicks < SCREEN_TICKS_PER_FRAME) {
 			//Wait remaining time
 			SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
+		}	
+		if (frameUntilNextKeyPressRegistered > 0) {
+			--frameUntilNextKeyPressRegistered; //One key press would register twice
 		}
 	}
 	close(); //If quit, close window 

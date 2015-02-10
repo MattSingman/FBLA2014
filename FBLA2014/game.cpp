@@ -32,3 +32,16 @@ void game::showTutorial() {
 	messageBoxes.push_back(MessageBox(thirdTextString.c_str(), renderer, font));
 
 }
+
+bool game::hasNextBox() {
+	bool hasNext = false;
+	if (messageBoxes.size() > 1) {
+		hasNext = true;
+	}
+	return hasNext;
+}
+
+void game::nextBox() {
+
+	messageBoxes.erase(messageBoxes.begin());
+}

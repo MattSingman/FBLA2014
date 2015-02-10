@@ -60,8 +60,10 @@ class window{
 	//The frames per second cap timer
 	timer capTimer;
 	int countedFrames = 0;
+	int frameUntilNextKeyPressRegistered = 0;
 
 	std::vector<std::vector<std::string>> gamePath; //Values assigned inside the newGame member function
+
 
 
 

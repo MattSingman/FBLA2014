@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <vector>
+#include <algorithm>
 #include "MessageBox.h"
 
 #ifndef GAME_H
@@ -30,6 +31,9 @@ public:
 	void giveDamage(int);
 
 	void showTutorial();
+	bool hasNextBox();
+	
+	void nextBox();
 
 	MessageBox getFirstMessageBox() const { return messageBoxes[0]; };
 	
