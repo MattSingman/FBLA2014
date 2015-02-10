@@ -8,9 +8,9 @@ window::window() { //TODO: Music
 	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED); //Create renderer
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
 	createMenu();
-
 	srand(time(NULL)); //Random number seed
-	
+	Mix_Music * mscMusic = NULL;
+
 	//Start FPS counter
 	fpsTimer.start(); 
 
