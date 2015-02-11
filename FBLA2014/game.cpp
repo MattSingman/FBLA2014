@@ -52,7 +52,7 @@ void game::nextBox() {
 }
 
 void game::waveComplete() {
-	money += 500;
+	money += 400;
 	++wave;
 	if (wave == 1) {
 		enemiesLeft = 10;
@@ -128,22 +128,8 @@ void game::waveComplete() {
 			fileChoices.push_back(newEnemy2);
 		}
 	}
+
 	else if (wave == 6) {
-		enemiesLeft = 10;
-		std::string textString = std::string("Watch out opening emails; they may contain worms! Not only could this hurt your computer, but this could hurt other computers too as a worm spreads by replicating itself over email oftentimes.");
-		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
-
-		File newEnemy1 = File("../art/wormEnemy.bmp", "../art/wormFriend.bmp", true,
-			5, 3, 5, renderer);
-		File newEnemy2 = File("../art/wormEnemy.bmp", "../art/wormFriend.bmp", false,
-			5, 3, 5, renderer);
-		for (int i = 0; i < wave; ++i) {
-			fileChoices.push_back(newEnemy1);
-			fileChoices.push_back(newEnemy2);
-		}
-	}
-
-	else if (wave == 7) {
 		enemiesLeft = 10;
 		std::string textString = std::string("The trojan is a powerful and sly virus, it disguised itself as a helpful program on the internet, and now is granting itself broad controls over your computer once downloaded. This trojan looks like it wants to monitor your webcam, and steal personal data! Stop it at all costs!");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
@@ -157,14 +143,14 @@ void game::waveComplete() {
 			fileChoices.push_back(newEnemy2);
 		}
 	} 
-	else if (wave == 8) {
+	else if (wave == 7) {
 		enemiesLeft = 100;
 		std::string textString = std::string("Uh oh, someone's trying really hard to gain control of your computer with all their might. Good luck.");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
 
 	}
-	else if (wave == 9) {
+	else if (wave == 8) {
 		std::string textString = std::string("You WON!!!! Your computer is in good hands!");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 		endGame = true;
