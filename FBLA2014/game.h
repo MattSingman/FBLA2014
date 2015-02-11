@@ -22,7 +22,9 @@ class game {
 
 	std::vector<File> fileChoices;
 
-	bool alive = true;;
+	bool alive = true;
+
+	bool endGame = false;
 
 	int enemiesLeft = 0;
 
@@ -44,7 +46,9 @@ public:
 	
 	void nextBox();
 
-	bool isAlive() { return alive; };
+	bool isAlive() const { return alive; };
+
+	bool getEndGame() const { return endGame; };
 
 	void waveComplete();
 

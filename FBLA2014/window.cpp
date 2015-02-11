@@ -44,6 +44,14 @@ window::window() { //TODO:
 				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
 					quit = true;
 				}
+				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox && frameUntilNextKeyPressRegistered == 0) {
+					frameUntilNextKeyPressRegistered = 10;
+					if (currentGame.getEndGame()) {
+						quit = true;
+					}
+
+
+				}
 			}
 			else { //If playing
 				if (e.type == SDL_QUIT) {
@@ -201,7 +209,6 @@ window::window() { //TODO:
 			TextTexture hp = TextTexture(hpCString, white, textFont, 1066, 550, renderer);
 			textures.push_back(hp.getPosTexture());
 
-			textures.push_back(playButton.getTexture()); //Add play button
 
 			if (!dialogBox) {
 
@@ -352,8 +359,7 @@ void window::newGame() {
 			
 		}
 	}
-	playButton = Button("../art/play.bmp", this);
-	playButton.placeOnScreen(1066, 600); //Play button starts wave
+
 	currentGame = game(renderer, textFont);
 	currentGame.showTutorial();
 	dialogBox = true;

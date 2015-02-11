@@ -16,6 +16,8 @@ void game::giveDamage(int damage) {
 	computerHP -= damage;
 	if (computerHP <= 0) {
 		alive = false;
+		messageBoxes.push_back(MessageBox("Your computer has been compromised! Abort!", renderer, font));
+		endGame = true;
 	}
 }
 
@@ -165,6 +167,7 @@ void game::waveComplete() {
 	else if (wave == 9) {
 		std::string textString = std::string("You WON!!!! Your computer is in good hands!");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
+		endGame = true;
 	}
 
 }
