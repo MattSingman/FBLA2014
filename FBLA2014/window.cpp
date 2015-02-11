@@ -146,6 +146,10 @@ window::window() { //TODO:
 			
 		}
 		if (inGame) { //Screen must be updated if in game
+			if (!(currentGame.isAlive())) {
+				dialogBox = true;
+				inGame = false;
+			}
 			if (addFileCooldown > 0) {
 				--addFileCooldown;
 			}

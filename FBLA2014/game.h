@@ -22,6 +22,8 @@ class game {
 
 	std::vector<File> fileChoices;
 
+	bool alive = true;;
+
 	int enemiesLeft = 0;
 
 public:
@@ -42,6 +44,8 @@ public:
 	
 	void nextBox();
 
+	bool isAlive() { return alive; };
+
 	void waveComplete();
 
 	File getEnemy();
@@ -57,6 +61,7 @@ public:
 		messageBoxes = rhs.messageBoxes;
 		fileChoices = rhs.fileChoices;
 		enemiesLeft = rhs.enemiesLeft;
+		alive = rhs.alive;
 		return *this;
 	}
 

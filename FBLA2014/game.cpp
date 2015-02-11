@@ -14,6 +14,9 @@ void game::addMoney(int cost) {
 
 void game::giveDamage(int damage) {
 	computerHP -= damage;
+	if (computerHP <= 0) {
+		alive = false;
+	}
 }
 
 void game::showTutorial() {
@@ -28,7 +31,7 @@ void game::showTutorial() {
 		"turret to deal damage to an enemy. If the enemy makes it past your defenses, your computer takes damage. Carefully watch your credits!";
 	messageBoxes.push_back(MessageBox(secondTextString.c_str(), renderer, font));
 
-	std::string thirdTextString = std::string("When a file is under the gaze of the scanner, if the file is malicious, you'll see the file turn red, and turrets can and will shoot it.");
+	std::string thirdTextString = std::string("When a file is under the gaze of the scanner, if the file is malicious, you'll see the file turn red, and turrets can and will shoot it if it's within range. Both turrets have a range of 2 blocks");
 	messageBoxes.push_back(MessageBox(thirdTextString.c_str(), renderer, font));
 
 }
@@ -47,7 +50,7 @@ void game::nextBox() {
 }
 
 void game::waveComplete() {
-	money += 1000;
+	money += 500;
 	++wave;
 	if (wave == 1) {
 		enemiesLeft = 10;
