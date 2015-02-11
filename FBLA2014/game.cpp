@@ -22,7 +22,7 @@ void game::giveDamage(int damage) { //Give damage to computer
 }
 
 void game::showTutorial() {
-	std::string firstTextString = "Welcome to Bob's Tower Defense. In this game, you must defend your computer from malicious files attempting to attack " +
+	std::string firstTextString = "Welcome to Viro the Virus Hunter. In this game, you play as Viro and must defend your computer from malicious files attempting to attack " +
 		std::string("your computer. Use the mouse to select turrets to place on the map and ") +
 		"right click to stop create turret mode. Press escape to exit";
 	messageBoxes.push_back(MessageBox(firstTextString.c_str(), renderer, font));
