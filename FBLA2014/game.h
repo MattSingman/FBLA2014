@@ -10,7 +10,7 @@
 
 class game {
 
-	int money = 10000; //starting money
+	int money = 1000; //starting money
 	int computerHP = 100;
 
 	int wave = 0;

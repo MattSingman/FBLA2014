@@ -47,9 +47,10 @@ void game::nextBox() {
 }
 
 void game::waveComplete() {
+	money += 1000;
 	++wave;
-	if (wave == 5) {
-		enemiesLeft = 1;
+	if (wave == 1) {
+		enemiesLeft = 10;
 
 		std::string textString = std::string("The first enemy you'll face is the boot sector virus, an old virus that originated from floppy disks. When someone starts a computer with a ") +
 			"floppy disk in it that contains a boot sector virus, the C drive will be infected. Once the floppy is removed, the user may not even realize that their computer has been infected.";
@@ -63,7 +64,7 @@ void game::waveComplete() {
 		fileChoices.push_back(newEnemy2);
 	}
 	else if (wave == 2) {
-		enemiesLeft = 1;
+		enemiesLeft = 10;
 		std::string textString = std::string("You downloaded some Word documents! Be careful, Word documents can include macros, which can, if malicious, replace benign macros on your computer and execute unwanted actions");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
@@ -79,7 +80,7 @@ void game::waveComplete() {
 		
 	}
 	else if (wave == 3) {
-		enemiesLeft = 1;
+		enemiesLeft = 10;
 		std::string textString = std::string("The next enemy attacking your computer is a browser hijacker, which is attempting to take control of your browser and redirect your web queries!");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
@@ -94,7 +95,7 @@ void game::waveComplete() {
 
 	}
 	else if (wave == 4) {
-		enemiesLeft = 1;
+		enemiesLeft = 10;
 		std::string textString = std::string("It looks like you downloaded an executable file. Be wary, some executables may be direct action viruses, or malware that executes upon execution.");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
@@ -108,7 +109,7 @@ void game::waveComplete() {
 		}
 
 	}
-	else if (wave == 1) {
+	else if (wave == 5) {
 		enemiesLeft = 10;
 		std::string textString = std::string("Watch out opening emails; they may contain worms! Not only could this hurt your computer, but this could hurt other computers too as a worm spreads by replicating itself over email oftentimes.");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
@@ -123,22 +124,43 @@ void game::waveComplete() {
 		}
 	}
 	else if (wave == 6) {
+		enemiesLeft = 10;
+		std::string textString = std::string("Watch out opening emails; they may contain worms! Not only could this hurt your computer, but this could hurt other computers too as a worm spreads by replicating itself over email oftentimes.");
+		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
+		File newEnemy1 = File("../art/wormEnemy.bmp", "../art/wormFriend.bmp", true,
+			5, 3, 5, renderer);
+		File newEnemy2 = File("../art/wormEnemy.bmp", "../art/wormFriend.bmp", false,
+			5, 3, 5, renderer);
+		for (int i = 0; i < wave; ++i) {
+			fileChoices.push_back(newEnemy1);
+			fileChoices.push_back(newEnemy2);
+		}
 	}
+
 	else if (wave == 7) {
+		enemiesLeft = 10;
+		std::string textString = std::string("The trojan is a powerful and sly virus, it disguised itself as a helpful program on the internet, and now is granting itself broad controls over your computer once downloaded. This trojan looks like it wants to monitor your webcam, and steal personal data! Stop it at all costs!");
+		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
-	}
+		File newEnemy1 = File("../art/trojanEnemy.bmp", "../art/trojanFriend.bmp", true,
+			5, 20, 20, renderer);
+		File newEnemy2 = File("../art/trojanEnemy.bmp", "../art/trojanFriend.bmp", false,
+			5, 20, 20, renderer);
+		for (int i = 0; i < wave; ++i) {
+			fileChoices.push_back(newEnemy1);
+			fileChoices.push_back(newEnemy2);
+		}
+	} 
 	else if (wave == 8) {
+		enemiesLeft = 100;
+		std::string textString = std::string("Uh oh, someone's trying really hard to gain control of your computer with all their might. Good luck.");
+		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
+
 
 	}
 	else if (wave == 9) {
-
-	} 
-	else if (wave == 10) {
-
-	}
-	else if (wave == 11) {
-		std::string textString = std::string("You WON!!!!");
+		std::string textString = std::string("You WON!!!! Your computer is in good hands!");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 	}
 
@@ -148,3 +170,4 @@ File game::getEnemy() {
 	enemiesLeft--;
 	return (fileChoices[rand() % fileChoices.size()]);
 }
+
