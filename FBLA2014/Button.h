@@ -16,7 +16,7 @@ protected:
 	const char* path; //Path to item's art
 	
 	SDL_Texture* texture;
-	PositionedTexture posTexture;
+	PositionedTexture posTexture; //Texture for button
 
 	const int WIDTH = 300;
 	const int HEIGHT = 100;
@@ -25,7 +25,7 @@ protected:
 
 public:
 	Button();
-	Button(const char*, window*); //constructor TODO: Param for animation? 
+	Button(const char*, window*); //constructor 
 	window* getContainerWindow() const { return containerWindow; };
 	SDL_Texture* getSDLTexture() const { return texture; };
 	PositionedTexture getTexture() const { return posTexture; };

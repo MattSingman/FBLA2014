@@ -2,7 +2,7 @@
 #include "window.h"
 
 
-int main(int argc, char** args) {//TODO Screen black when maximizing after minimized?
+int main(int argc, char** args) {
 	window w;
 	return 0;
 }

@@ -14,17 +14,17 @@ protected:
 	window* containerWindow; //Window button is located in
 
 	SDL_Texture* texture;
-	PositionedTexture posTexture;
+	PositionedTexture posTexture; //Texture of block
 
 
 	const char* pathScanned; //Path to item's art
 	const char* pathUnscanned;
 	const int WIDTH = 64; //Width of item
 	const int HEIGHT = 64; //Height of item
-	PositionedTexture scannedTexture;
-	PositionedTexture unScannedTexture;
+	PositionedTexture scannedTexture; //Texture to be displayed when under influence of scanner
+	PositionedTexture unScannedTexture; 
 
-	int gridX;
+	int gridX; //Grid positioning compared to other blocks
 	int gridY;
 
 	int xPos;
@@ -36,8 +36,8 @@ protected:
 
 public:
 	Block();
-	Block(const char*, const char*, window*, int, int); //constructor TODO: Param for animation? 
-	PositionedTexture placeOnScreen(int x, int y); //Places item on screen at given location (IMPORTANT: X location is at CENTER)
+	Block(const char*, const char*, window*, int, int); //constructor 
+	PositionedTexture placeOnScreen(int x, int y); //Places item on screen at given location 
 
 	int getGridX() const { return gridX; };
 	int getGridY() const { return gridY; };
@@ -56,7 +56,7 @@ public:
 	SDL_Texture* getSDLTexture() const { return texture; };
 	PositionedTexture getTexture() const { return posTexture; };
 
-	bool insidePos(int, int);
+	bool insidePos(int, int); //Checks whether given position is inside block
 
 
 	Block& Block::operator=(const Block &rhs) { //Equality overload

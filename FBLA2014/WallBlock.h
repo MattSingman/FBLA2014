@@ -14,7 +14,7 @@
 class WallBlock : public Block {
 	bool empty = true; //If block has turret on it
 
-	turret childTurret;
+	turret childTurret; //Turret on block
 
 public:
 	WallBlock();
@@ -33,7 +33,7 @@ public:
 
 	void removeTurret();
 
-	void checkFireChances(std::vector<PathBlock>*);
+	void checkFireChances(std::vector<PathBlock>*); //will look for chances of turret to fire, if applicable
 
 
 	WallBlock& WallBlock::operator=(const WallBlock &rhs) { //Equality overload

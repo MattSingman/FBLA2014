@@ -12,7 +12,7 @@ PathBlock::PathBlock(const char* unscannedPath, const char* scannedPath, int xGr
 }
 
 void PathBlock::addFile(File toAdd) {
-	toAdd.setMovementDirection(getMovementDirection());
+	toAdd.setMovementDirection(getMovementDirection()); //Set File to have movement and scanned attributes of block
 	toAdd.setScanned(getScanned());
 	files.push_back(toAdd);
 }
@@ -40,12 +40,12 @@ bool PathBlock::isInsideBlock(File fileToCheck) {
 void PathBlock::checkFiles(std::vector<PathBlock>* pathBlocks, game* currentGame) {
 	for (int i = 0; i < files.size(); ++i) {
 		if (!files[i].isAlive()) {
-			files.resize(std::remove(files.begin(), files.end(), files[i]) - files.begin());
+			files.resize(std::remove(files.begin(), files.end(), files[i]) - files.begin()); //Remove file if not alive
 		}
 	}
 	for (int i = 0; i < files.size(); ++i) {
 		if (!(isInsideBlock(files[i]))) { //If outside block
-			giveTurret(files[i], pathBlocks, currentGame);
+			giveTurret(files[i], pathBlocks, currentGame); //Pass file on
 			files.resize(std::remove(files.begin(), files.end(), files[i]) - files.begin());
 		}
 	}
@@ -55,7 +55,7 @@ void PathBlock::giveTurret(File fileToGive, std::vector<PathBlock>* pathBlocks, 
 	int nextGridX = gridX;
 	int nextGridY = gridY;
 	//Get next path block
-	if (std::string(movementDirection) == "U") {
+	if (std::string(movementDirection) == "U") { //Which grid position the turret must go to next
 		nextGridY -= 1;
 	}
 	else if (std::string(movementDirection) == "D") {
@@ -79,7 +79,7 @@ void PathBlock::giveTurret(File fileToGive, std::vector<PathBlock>* pathBlocks, 
 
 	}
 	if (!gaveFile && fileToGive.isEnemy()) { //If no other path found, it hit the end and will hurt the computer HP
-		currentGame->giveDamage(fileToGive.getAttackDamage());
+		currentGame->giveDamage(fileToGive.getAttackDamage()); 
 	}
 }
 
@@ -91,7 +91,7 @@ void PathBlock::setScanned(bool change) {
 	else {
 		posTexture = unScannedTexture;
 	}
-	if (files.size() > 0) {
+	if (files.size() > 0) { //Set children files to scanned status
 		for (auto& file : files) {
 			file.setScanned(scanned);
 		}

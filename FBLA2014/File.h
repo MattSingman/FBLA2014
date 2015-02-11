@@ -17,14 +17,14 @@ class File {
 	bool enemy;  //Whether the file is a virus or not when put under the scanner
 	bool scanned = false; //Whether file is being scanned
 
-	bool stunned = false;
-	int stunnedFramesLeft = 0;
+	bool stunned = false; //If File is stunned (and can't move)
+	int stunnedFramesLeft = 0; //How long stunned state lasts
 
-	const char* movementDirection;
+	const char* movementDirection; //What direction the File is moving
 
 	double movementSpeed; //in pixels/frame
 
-	int hp;
+	int hp; //Health
 
 	int attackDamage; //How much damage is dealt when it gets to the end of the map
 
@@ -32,10 +32,10 @@ class File {
 	PositionedTexture enemyTexture;
 	PositionedTexture friendTexture;
 
-	int xPos;
+	int xPos; //x-y position on the graph
 	int yPos;
 
-	double preciseXPos;
+	double preciseXPos;  //x-y position, allowing for partial movement per frame (if speed is less than one pixel/frame)
 	double preciseYPos;
 
 public:
@@ -62,12 +62,12 @@ public:
 	double getMovementSpeed() const { return movementSpeed; };
 
 	int getHP() const { return hp; };
-	void giveDamage(int);
+	void giveDamage(int); //File takes damage
 	bool isAlive();
 
 	int getAttackDamage() const { return attackDamage; };
 
-	void move();
+	void move(); //Move in given direction
 
 	PositionedTexture getPosTexture();
 

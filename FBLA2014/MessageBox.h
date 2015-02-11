@@ -9,7 +9,7 @@
 class MessageBox {
 
 	PositionedTexture posTextureText;
-	PositionedTexture posTextureOK;
+	PositionedTexture posTextureOK; 
 
 public:
 	MessageBox(const char*,SDL_Renderer*, TTF_Font*);

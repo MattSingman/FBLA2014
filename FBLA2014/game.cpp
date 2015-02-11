@@ -12,9 +12,9 @@ void game::addMoney(int cost) {
 	money += cost;
 }
 
-void game::giveDamage(int damage) {
+void game::giveDamage(int damage) { //Give damage to computer
 	computerHP -= damage;
-	if (computerHP <= 0) {
+	if (computerHP <= 0) { //If has no HP left
 		alive = false;
 		messageBoxes.push_back(MessageBox("Your computer has been compromised! Abort!", renderer, font));
 		endGame = true;
@@ -54,7 +54,7 @@ void game::nextBox() {
 void game::waveComplete() {
 	money += 400;
 	++wave;
-	if (wave == 1) {
+	if (wave == 1) { //Each wave, add enemies to field
 		enemiesLeft = 10;
 
 		std::string textString = std::string("The first enemy you'll face is the boot sector virus, an old virus that originated from floppy disks. When someone starts a computer with a ") +
@@ -158,7 +158,7 @@ void game::waveComplete() {
 
 }
 
-File game::getEnemy() {
+File game::getEnemy() { //Get a random enemy to display
 	enemiesLeft--;
 	return (fileChoices[rand() % fileChoices.size()]);
 }

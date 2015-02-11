@@ -11,13 +11,13 @@
 
 class turret : public Button {
 	
-	const char* type; 
+	const char* type; //Type of turret
 	const int WIDTH = 64;
 	const int HEIGHT = 64;
 	
-	int cost;
-	int damage=0;
-	int stunnedCooldown=0;
+	int cost; //Cost of turret
+	int damage=0;//Damage 
+	int stunnedCooldown=0; //Time target would be stunned
 	int fireRate; //in frames
 
 	int framesUntilNextShot = 0;
