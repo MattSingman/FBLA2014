@@ -28,7 +28,8 @@ void game::showTutorial() {
 		"turret to deal damage to an enemy. If the enemy makes it past your defenses, your computer takes damage. Carefully watch your credits!";
 	messageBoxes.push_back(MessageBox(secondTextString.c_str(), renderer, font));
 
-
+	std::string thirdTextString = std::string("When a file is under the gaze of the scanner, if the file is malicious, you'll see the file turn red, and turrets can and will shoot it.");
+	messageBoxes.push_back(MessageBox(thirdTextString.c_str(), renderer, font));
 
 }
 
@@ -47,8 +48,8 @@ void game::nextBox() {
 
 void game::waveComplete() {
 	++wave;
-	if (wave == 1) {
-		enemiesLeft = 10;
+	if (wave == 5) {
+		enemiesLeft = 1;
 
 		std::string textString = std::string("The first enemy you'll face is the boot sector virus, an old virus that originated from floppy disks. When someone starts a computer with a ") +
 			"floppy disk in it that contains a boot sector virus, the C drive will be infected. Once the floppy is removed, the user may not even realize that their computer has been infected.";
@@ -62,27 +63,64 @@ void game::waveComplete() {
 		fileChoices.push_back(newEnemy2);
 	}
 	else if (wave == 2) {
-		enemiesLeft = 10;
+		enemiesLeft = 1;
+		std::string textString = std::string("You downloaded some Word documents! Be careful, Word documents can include macros, which can, if malicious, replace benign macros on your computer and execute unwanted actions");
+		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
+
+		File newEnemy1 = File("../art/wordDocumentEnemy.bmp", "../art/wordDocumentFriend.bmp", true,
+			1, 5, 5, renderer);
+		File newEnemy2 = File("../art/wordDocumentEnemy.bmp", "../art/wordDocumentFriend.bmp", false,
+			1, 5, 5, renderer);
+		for (int i = 0; i < wave; ++i) {
+			fileChoices.push_back(newEnemy1);
+			fileChoices.push_back(newEnemy2);
+		}
+		
+		
+	}
+	else if (wave == 3) {
+		enemiesLeft = 1;
 		std::string textString = std::string("The next enemy attacking your computer is a browser hijacker, which is attempting to take control of your browser and redirect your web queries!");
 		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
 		File newEnemy1 = File("../art/browserEnemy.bmp", "../art/browserFriend.bmp", true,
-			1, 5, 5, renderer);
-		File newEnemy2 = File("../art/browserEnemy.bmp", "../art/browserEnemy.bmp", false,
-			1, 5, 5, renderer);
-		fileChoices.push_back(newEnemy1);
-		fileChoices.push_back(newEnemy2);
-		fileChoices.push_back(newEnemy1);
-		fileChoices.push_back(newEnemy2);
-	}
-	else if (wave == 3) {
+			1.5, 7, 9, renderer);
+		File newEnemy2 = File("../art/browserEnemy.bmp", "../art/browserFriend.bmp", false,
+			1.5, 7, 9, renderer);
+		for (int i = 0; i < wave; ++i) {
+			fileChoices.push_back(newEnemy1);
+			fileChoices.push_back(newEnemy2);
+		}
 
 	}
 	else if (wave == 4) {
+		enemiesLeft = 1;
+		std::string textString = std::string("It looks like you downloaded an executable file. Be wary, some executables may be direct action viruses, or malware that executes upon execution.");
+		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
+
+		File newEnemy1 = File("../art/directActionEnemy.bmp", "../art/directActionFriend.bmp", true,
+			1, 15, 15, renderer);
+		File newEnemy2 = File("../art/directActionEnemy.bmp", "../art/directActionFriend.bmp", false,
+			1, 15, 15, renderer);
+		for (int i = 0; i < wave; ++i) {
+			fileChoices.push_back(newEnemy1);
+			fileChoices.push_back(newEnemy2);
+		}
 
 	}
-	else if (wave == 5) {
+	else if (wave == 1) {
+		enemiesLeft = 10;
+		std::string textString = std::string("Watch out opening emails; they may contain worms! Not only could this hurt your computer, but this could hurt other computers too as a worm spreads by replicating itself over email oftentimes.");
+		messageBoxes.push_back(MessageBox(textString.c_str(), renderer, font));
 
+		File newEnemy1 = File("../art/wormEnemy.bmp", "../art/wormFriend.bmp", true,
+			5, 3, 5, renderer);
+		File newEnemy2 = File("../art/wormEnemy.bmp", "../art/wormFriend.bmp", false,
+			5, 3, 5, renderer);
+		for (int i = 0; i < wave; ++i) {
+			fileChoices.push_back(newEnemy1);
+			fileChoices.push_back(newEnemy2);
+		}
 	}
 	else if (wave == 6) {
 
