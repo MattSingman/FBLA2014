@@ -205,8 +205,12 @@ window::window() { //TODO:
 				for (auto& pathBlock : pathBlocks) {
 					
 					if (pathBlock.hasFiles()) {
-						enemiesOnScreen = true;
-						break;
+						for (auto& file : pathBlock.getFiles()) {
+							if (file.isEnemy()) {
+								enemiesOnScreen = true;
+								break;
+							}
+						}
 					}
 				}
 				if (!enemiesOnScreen && currentGame.getEnemiesLeft() == 0) {

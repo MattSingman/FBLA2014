@@ -12,7 +12,7 @@ MessageBox::MessageBox(const char* text, SDL_Renderer* sdlRenderer, TTF_Font* tt
 	//Get rid of old surface
 	SDL_FreeSurface(textSurface);
 
-	posTextureText = PositionedTexture(texture, 425, 220, width, height, 0);
+	posTextureText = PositionedTexture(texture, 425, 205, width, height, 0);
 
 	SDL_Surface* textSurfaceEnter = TTF_RenderText_Solid(ttfFont, "Press enter to continue...", white);
 
