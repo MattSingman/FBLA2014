@@ -3,9 +3,9 @@
 window::window() { //TODO: 
 
 	SDL_Init(SDL_INIT_EVERYTHING);//initialize SDL
-	mainWindow = SDL_CreateWindow("Bob's Tower Defense", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 32); //create Window TODO: Change window name
+	mainWindow = SDL_CreateWindow("Bob's Tower Defense", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 32); //create Window 
 
-	//SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); //TODO Final game full screen. TODO Exit while in game
+	SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN); 
 	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED); //Create renderer
 	screen = SDL_GetWindowSurface(mainWindow); //screen is on window
 	createMenu();
@@ -14,10 +14,10 @@ window::window() { //TODO:
 	//Start FPS counter
 	fpsTimer.start(); 
 
-	TTF_Init();
+	TTF_Init(); //Start the font creator
 	textFont = TTF_OpenFont("../art/Fonts/font.ttf", 25);
 
-	while (!quit) { //main loop TODO: exit game while in game!
+	while (!quit) { //main loop 
 		//Start fps cap timer
 		capTimer.start();
 
@@ -26,25 +26,25 @@ window::window() { //TODO:
 				//If user quits
 				if (e.type == SDL_QUIT) {
 					quit = true;
-				}
-				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) {
+				} 
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) { //If user clicks with left mouse button
 					int mouseX, mouseY;
 					SDL_GetMouseState(&mouseX, &mouseY);
 					MenuItem selected;
-					for (auto& menuItem : menuItems) {
+					for (auto& menuItem : menuItems) { //Check to see if any menu items were target of click
 						if (menuItem.insidePos(mouseX, mouseY)) {
 							selected = menuItem;
 							break;
 						}
 					}
 					if (selected.getFunction() != NULL) { //Make sure object exists
-						(selected.getFunction())();
+						(selected.getFunction())(); //Execute function of that menu button
 					}
 				}
-				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
+				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) { //Escape closes the game
 					quit = true;
 				}
-				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox && frameUntilNextKeyPressRegistered == 0) {
+				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox && frameUntilNextKeyPressRegistered == 0) { //If game is over, quit once user passes end screen
 					frameUntilNextKeyPressRegistered = 10;
 					if (currentGame.getEndGame()) {
 						quit = true;
@@ -57,19 +57,19 @@ window::window() { //TODO:
 				if (e.type == SDL_QUIT) {
 					quit = true;
 				}
-				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && dialogBox == false) {
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && dialogBox == false) { //If left mouse click
 					int mouseX, mouseY;
 					SDL_GetMouseState(&mouseX, &mouseY);
-					for (auto& turretButton : turretButtons) { //TODO If found, dont check for other possible interactions?
+					for (auto& turretButton : turretButtons) { //See if click was on turret button
 						if (turretButton.insidePos(mouseX, mouseY)) {
 							turretButton.setSelected(true);
 							int xMouse, yMouse;
-							SDL_GetMouseState(&xMouse, &yMouse);
-							turretButton.setChildPosition(xMouse, yMouse);
+							SDL_GetMouseState(&xMouse, &yMouse); 
+							turretButton.setChildPosition(xMouse, yMouse); //turret icon will follow mouse
 							textures.push_back(turretButton.getChildPosTexture());
 							for (auto& turretButtonCheck : turretButtons) {
 								if (&turretButtonCheck != &turretButton) {
-									turretButtonCheck.setSelected(false); //SElecting one deselects others
+									turretButtonCheck.setSelected(false); //Selecting one deselects others
 								}
 							}
 							break;
@@ -80,18 +80,18 @@ window::window() { //TODO:
 							const char* turretType = "";
 							PositionedTexture turretTexture;
 							for (auto& turretButton : turretButtons) {
-								if (turretButton.getSelected()) {
-									turretType = turretButton.getTurretType();
+								if (turretButton.getSelected()) { //If clicked on wall block while turret button was selected
+									turretType = turretButton.getTurretType(); 
 									turretTexture = turretButton.getChildPosTexture();
 									break;
 								}
 							}
 							if (turretType != "") {
-								wallBlock.addTurret(turretType, turretTexture);
+								wallBlock.addTurret(turretType, turretTexture); //Add turret to the block
 								currentGame.subtractMoney(wallBlock.getChildTurret().getCost());
 								if (currentGame.getMoney() < 0) { //If player cannot pay for the turret
 									currentGame.addMoney(wallBlock.getChildTurret().getCost());
-									wallBlock.removeTurret();
+									wallBlock.removeTurret(); //remove
 									
 								}
 								else { //if the purchase was valid
@@ -120,14 +120,14 @@ window::window() { //TODO:
 						}
 					}
 				}
-				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_RIGHT && dialogBox == false) {
-					for (auto& turretButton : turretButtons) {
+				else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_RIGHT && dialogBox == false) { //If right click
+					for (auto& turretButton : turretButtons) { 
 						if (turretButton.getSelected()) {
-							turretButton.setSelected(false);
+							turretButton.setSelected(false); //Deselect any selected turret buttons
 						}
 					}
 				}
-				else if (e.type == SDL_MOUSEMOTION && dialogBox == false) {
+				else if (e.type == SDL_MOUSEMOTION && dialogBox == false) { //Turret button icon follows mouse
 					for (auto& turretButton : turretButtons) {
 						if (turretButton.getSelected()) {
 							int mouseX, mouseY;
@@ -136,12 +136,12 @@ window::window() { //TODO:
 						}
 					}
 				}
-				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
+				else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) { //Quit on escape
 					quit = true;
 				}
 				else if (e.type = SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN && dialogBox && frameUntilNextKeyPressRegistered == 0) {
 					frameUntilNextKeyPressRegistered = 10;
-					if (!currentGame.hasNextBox()) {
+					if (!currentGame.hasNextBox()) { //Advance dialog boxes on enter
 						dialogBox = false;
 					}
 					currentGame.nextBox();
@@ -158,37 +158,37 @@ window::window() { //TODO:
 				dialogBox = true;
 				inGame = false;
 			}
-			if (addFileCooldown > 0) {
+			if (addFileCooldown > 0) { //Cooldown for adding files, decremented every screen
 				--addFileCooldown;
 			}
 			
 			textures.clear();
 			
-			for (auto& wallBlock : wallBlocks) {
-				textures.push_back(wallBlock.getTexture());
+			for (auto& wallBlock : wallBlocks) { 
+				textures.push_back(wallBlock.getTexture()); //Add wallBlock textures
 				if (!(wallBlock.isEmpty())) {
-					wallBlock.checkFireChances(&pathBlocks);
-					textures.push_back(wallBlock.getChildTurret().getTexture());
+					wallBlock.checkFireChances(&pathBlocks); //Try to fire if possible
+					textures.push_back(wallBlock.getChildTurret().getTexture()); //Add any child turret textures
 				}
 			}
 			for (auto& pathBlock : pathBlocks) {
-				if (addFileCooldown == 0 && currentGame.getEnemiesLeft() > 0 && !dialogBox) {
+				if (addFileCooldown == 0 && currentGame.getEnemiesLeft() > 0 && !dialogBox) { //If need to add enemies, add enemy on first block
 					if (pathBlock.getGridX() == 0 && pathBlock.getGridY() == 11 ) {
-						pathBlock.addFile(currentGame.getEnemy());
+						pathBlock.addFile(currentGame.getEnemy()); 
 						addFileCooldown = 120;
 					}
 				}
-				textures.push_back(pathBlock.getTexture());
-				pathBlock.checkFiles(&pathBlocks, &currentGame);
+				textures.push_back(pathBlock.getTexture()); //Add path block
+				pathBlock.checkFiles(&pathBlocks, &currentGame);  //Remove from pathBlock if file left
 				std::vector<File>& pathBlockFiles = (pathBlock.getFiles());
 				if (pathBlockFiles.size()) {
 					for (auto& file : pathBlockFiles) {
-						file.move();
+						file.move(); //Move file
 						textures.push_back(file.getPosTexture());
 					}
 				}
 			}
-			for (auto& turretButton : turretButtons) {
+			for (auto& turretButton : turretButtons) { //Add turret buttons
 				textures.push_back(turretButton.getTexture());
 				if (turretButton.getSelected()) {
 					textures.push_back(turretButton.getChildPosTexture());
@@ -212,7 +212,7 @@ window::window() { //TODO:
 
 			if (!dialogBox) {
 
-				bool enemiesOnScreen = false;
+				bool enemiesOnScreen = false; //Check if enemies on screen
 				for (auto& pathBlock : pathBlocks) {
 					
 					if (pathBlock.hasFiles()) {
@@ -224,7 +224,7 @@ window::window() { //TODO:
 						}
 					}
 				}
-				if (!enemiesOnScreen && currentGame.getEnemiesLeft() == 0) {
+				if (!enemiesOnScreen && currentGame.getEnemiesLeft() == 0) { //If enemies all gone and no more will be added, end of wave
 					currentGame.waveComplete();
 					dialogBox = true;
 				}
@@ -252,7 +252,7 @@ window::window() { //TODO:
 			}
 
 		}
-		if (dialogBox) { //Draw dialog box
+		if (dialogBox) { //Draw dialog box if needed
 			SDL_Rect dialogBoxRect = { 400, 200, 600, 350 };
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			SDL_RenderFillRect(renderer, &dialogBoxRect);
@@ -274,13 +274,13 @@ window::window() { //TODO:
 			SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 		}	
 		if (frameUntilNextKeyPressRegistered > 0) {
-			--frameUntilNextKeyPressRegistered; //One key press would register twice
+			--frameUntilNextKeyPressRegistered; //One key press would register twice without cooldown
 		}
 	}
 	close(); //If quit, close window 
 }
 //Loads surface and places it on the screen
-void window::loadBackgroundSurface(std::string path){ //TODO Will I be able to chnage the background?
+void window::loadBackgroundSurface(std::string path){ 
 	SDL_Surface* artSurface = IMG_Load(path.c_str()); //Load background
 
 	background = NULL;
@@ -288,7 +288,7 @@ void window::loadBackgroundSurface(std::string path){ //TODO Will I be able to c
 	SDL_FreeSurface(artSurface);
 } 
 
-void window::close() { //TODO MenuItems close themselves
+void window::close() {
 	//Destroy window
 	SDL_DestroyWindow(mainWindow);
 	mainWindow = NULL;

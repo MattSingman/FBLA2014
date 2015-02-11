@@ -16,7 +16,7 @@ class turretButton : public Button {
 	const char* childPath;
 	PositionedTexture childPosTexture;
 
-	const char* turretType;
+	const char* turretType; //Scanner etc
 
 	bool selected = false;
 

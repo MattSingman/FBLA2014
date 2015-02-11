@@ -13,9 +13,9 @@
 
 class PathBlock : public Block {
 	
-	std::vector<File> files;
+	std::vector<File> files;  //Files inside block
 
-	const char* movementDirection;
+	const char* movementDirection; //What direction the files should be moving
 
 
 
@@ -25,7 +25,7 @@ public:
 
 	const char* const getMovementDirection() { return movementDirection; }; 
 
-	void addFile(File);
+	void addFile(File); //Add child file to path block
 
 	std::vector<File>& getFiles() { return files; };
 	bool hasFiles();
@@ -33,7 +33,7 @@ public:
 	void checkFiles(std::vector<PathBlock>*, game*);
 	bool isInsideBlock(File);
 
-	void giveTurret(File, std::vector<PathBlock>*, game*);
+	void giveTurret(File, std::vector<PathBlock>*, game*); //give turret to the next path block
 
 	const int getItemWidth() const { return WIDTH; };
 	const int getItemHeight() const { return HEIGHT; };

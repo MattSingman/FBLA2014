@@ -61,14 +61,14 @@ void File::setStunned(bool change, int stunnedFrames) {
 
 void File::move() {
 
-	if (stunnedFramesLeft > 0) {
+	if (stunnedFramesLeft > 0) { 
 		--stunnedFramesLeft;
 	}
 	if (stunnedFramesLeft == 0) {
 		stunned = false;
 	}
 
-	if (!stunned) {
+	if (!stunned) { //Can't move if stunned
 		if (std::string(movementDirection) == "U") {
 			preciseYPos -= movementSpeed;
 			yPos = (int)preciseYPos;
@@ -108,7 +108,7 @@ void File::setScanned(bool change) {
 	}
 }
 
-PositionedTexture File::getPosTexture() {
+PositionedTexture File::getPosTexture()  { //Change texture based on whether scanned or not
 	if (scanned) {
 		posTexture = enemyTexture;
 	}

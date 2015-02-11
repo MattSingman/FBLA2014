@@ -11,22 +11,22 @@
 class game {
 
 	int money = 1000; //starting money
-	int computerHP = 100;
+	int computerHP = 100; //Computer health, must stay above 0
 
-	int wave = 0;
+	int wave = 0; //What wave the game is on
 
 	TTF_Font* font;
 	SDL_Renderer* renderer;
 	
-	std::vector<MessageBox> messageBoxes;
+	std::vector<MessageBox> messageBoxes; //dialog boxes
 
-	std::vector<File> fileChoices;
+	std::vector<File> fileChoices; //Different files that can be placed on the map
 
-	bool alive = true;
+	bool alive = true; //Whether computer is still alive
 
-	bool endGame = false;
+	bool endGame = false; //If game is over (win or lose)
 
-	int enemiesLeft = 0;
+	int enemiesLeft = 0; //Enemies left on given wave
 
 public:
 	game() {};
